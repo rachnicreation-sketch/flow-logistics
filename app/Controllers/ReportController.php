@@ -1,0 +1,131 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Delivery;
+use App\Models\Order;
+use App\Models\Stock;
+use App\Services\ReportService;
+
+final class ReportController extends Controller
+{
+    public function index(): void
+    {
+        $stockRows = (new Stock())->summary();
+        $orderRows = (new Order())->listOrders();
+        $deliveryRows = (new Delivery())->listDeliveries();
+
+        $this->view('reports/index', [
+            'stats' => [
+                'stock_rows' => count($stockRows),
+                'order_rows' => count($orderRows),
+                'delivery_rows' => count($deliveryRows),
+            ],
+        ]);
+    }
+
+    public function stock(): void
+    {
+        $rows = (new Stock())->summary();
+
+        $tableRows = [];
+        foreach ($rows as $row) {
+            $tableRows[] = [
+                'SKU' => (string) ($row['sku'] ?? '-'),
+                'Produit' => (string) ($row['product_name'] ?? '-'),
+                'Entrepot' => (string) ($row['warehouse_name'] ?? '-'),
+                'Emplacement' => (string) ($row['location_label'] ?? '-'),
+                'Quantite' => number_format((float) ($row['quantity'] ?? 0), 2, '.', ' '),
+            ];
+        }
+
+        (new ReportService())->outputStructuredPdf(
+            'Rapport Stock',
+            'Etat du stock global par entrepot et emplacement',
+            [
+                ['label' => 'SKU', 'weight' => 1.1],
+                ['label' => 'Produit', 'weight' => 2.0],
+                ['label' => 'Entrepot', 'weight' => 1.4],
+                ['label' => 'Emplacement', 'weight' => 1.2],
+                ['label' => 'Quantite', 'weight' => 1.0],
+            ],
+            $tableRows,
+            [
+                'Lignes' => count($tableRows),
+                'Total quantite' => number_format(array_sum(array_map(static fn (array $r): float => (float) ($r['quantity'] ?? 0), $rows)), 2, '.', ' '),
+            ],
+            'rapport-stock.pdf'
+        );
+    }
+
+    public function orders(): void
+    {
+        $rows = (new Order())->listOrders();
+        $tableRows = [];
+
+        foreach ($rows as $row) {
+            $tableRows[] = [
+                'Reference' => (string) ($row['reference'] ?? '-'),
+                'Client' => (string) ($row['customer_name'] ?? '-'),
+                'Statut' => (string) ($row['status'] ?? '-'),
+                'Montant' => number_format((float) ($row['total_amount'] ?? 0), 2, '.', ' '),
+                'Date' => isset($row['created_at']) ? date('d/m/Y', strtotime((string) $row['created_at'])) : '-',
+            ];
+        }
+
+        (new ReportService())->outputStructuredPdf(
+            'Rapport Commandes',
+            'Suivi des commandes clients',
+            [
+                ['label' => 'Reference', 'weight' => 1.4],
+                ['label' => 'Client', 'weight' => 2.2],
+                ['label' => 'Statut', 'weight' => 1.1],
+                ['label' => 'Montant', 'weight' => 1.1],
+                ['label' => 'Date', 'weight' => 1.0],
+            ],
+            $tableRows,
+            [
+                'Lignes' => count($tableRows),
+                'Total montant' => number_format(array_sum(array_map(static fn (array $r): float => (float) ($r['total_amount'] ?? 0), $rows)), 2, '.', ' '),
+            ],
+            'rapport-commandes.pdf'
+        );
+    }
+
+    public function deliveries(): void
+    {
+        $rows = (new Delivery())->listDeliveries();
+        $tableRows = [];
+
+        foreach ($rows as $row) {
+            $tableRows[] = [
+                'Commande' => (string) ($row['order_ref'] ?? '-'),
+                'Client' => (string) ($row['customer_name'] ?? '-'),
+                'Chauffeur' => (string) ($row['driver_name'] ?? '-'),
+                'Vehicule' => (string) ($row['plate_number'] ?? '-'),
+                'Statut' => (string) ($row['status'] ?? '-'),
+            ];
+        }
+
+        (new ReportService())->outputStructuredPdf(
+            'Rapport Livraisons',
+            'Suivi transport et execution des livraisons',
+            [
+                ['label' => 'Commande', 'weight' => 1.4],
+                ['label' => 'Client', 'weight' => 2.0],
+                ['label' => 'Chauffeur', 'weight' => 1.4],
+                ['label' => 'Vehicule', 'weight' => 1.2],
+                ['label' => 'Statut', 'weight' => 1.0],
+            ],
+            $tableRows,
+            [
+                'Lignes' => count($tableRows),
+                'En cours' => count(array_filter($rows, static fn (array $r): bool => in_array((string) ($r['status'] ?? ''), ['pending', 'in_transit'], true))),
+            ],
+            'rapport-livraisons.pdf'
+        );
+    }
+}
