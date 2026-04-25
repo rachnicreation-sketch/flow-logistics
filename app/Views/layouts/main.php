@@ -27,6 +27,7 @@ if (!function_exists('layout_is_active')) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="<?= e(asset('css/app.css')) ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -127,19 +128,7 @@ if (!function_exists('layout_is_active')) {
             <div class="menu-group">Pilotage</div>
             <?php endif; ?>
 
-            <?php if (Auth::can('messages.manage')): ?>
-            <a href="<?= e(url('/messages')) ?>" class="<?= layout_is_active('/messages', $currentPath) ?>">
-                <span class="menu-mark">MS</span>
-                <span>Messages</span>
-            </a>
-            <?php endif; ?>
 
-            <?php if (Auth::can('dashboard.view')): ?>
-            <a href="<?= e(url('/notifications')) ?>" class="<?= layout_is_active('/notifications', $currentPath) ?>">
-                <span class="menu-mark">NT</span>
-                <span>Notifications</span>
-            </a>
-            <?php endif; ?>
 
             <?php if (Auth::can('tickets.manage')): ?>
             <a href="<?= e(url('/tickets')) ?>" class="<?= layout_is_active('/tickets', $currentPath) ?>">
@@ -181,10 +170,25 @@ if (!function_exists('layout_is_active')) {
                 <strong><?= e($user['name'] ?? 'Utilisateur') ?></strong>
                 <span><?= e($user['role_slug'] ?? '') ?></span>
             </div>
-            <form method="post" action="<?= e(url('/logout')) ?>">
-                <?= csrf_field() ?>
-                <button class="btn btn-outline btn-sm" type="submit">Déconnexion</button>
-            </form>
+            <div class="topbar-right">
+                <?php if (Auth::can('messages.manage')): ?>
+                    <a href="<?= e(url('/messages')) ?>" class="topbar-icon-btn <?= layout_is_active('/messages', $currentPath) ?>" title="Messages">
+                        <span class="icon-mark"><i class="fa-solid fa-envelope"></i></span>
+                    </a>
+                <?php endif; ?>
+                <?php if (Auth::can('dashboard.view')): ?>
+                    <a href="<?= e(url('/notifications')) ?>" class="topbar-icon-btn <?= layout_is_active('/notifications', $currentPath) ?>" title="Notifications">
+                        <span class="icon-mark"><i class="fa-solid fa-bell"></i></span>
+                    </a>
+                <?php endif; ?>
+                <button id="themeToggle" class="topbar-icon-btn" title="Changer le mode">
+                    <span class="icon-mark theme-icon"><i class="fa-solid fa-sun"></i></span>
+                </button>
+                <form method="post" action="<?= e(url('/logout')) ?>">
+                    <?= csrf_field() ?>
+                    <button class="btn btn-outline btn-sm" type="submit">Déconnexion</button>
+                </form>
+            </div>
         </header>
 
         <div class="page-body">

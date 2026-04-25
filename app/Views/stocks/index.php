@@ -1,88 +1,61 @@
 <section class="page-header">
-    <h2>Gestion des stocks</h2>
-    <p>Entrees, sorties, inventaire et recapitulatifs lisibles par produit/emplacement.</p>
+    <div class="header-left">
+        <h2>Gestion des Stocks</h2>
+        <p>Suivez les entrées, sorties et ajustements de votre inventaire en temps réel.</p>
+    </div>
+    <div class="header-right">
+        <button class="btn btn-primary" onclick="document.getElementById('newMovementPanel').classList.toggle('hidden')">
+            <i class="fa-solid fa-right-left"></i> Nouveau Mouvement
+        </button>
+    </div>
 </section>
 
-<section class="split-grid">
-    <article class="panel panel-pad">
-        <h3>Nouveau mouvement</h3>
-        <form method="post" action="<?= e(url('/stocks/move')) ?>" class="grid-form">
-            <?= csrf_field() ?>
-            <label>Produit
-                <select name="product_id">
-                    <?php foreach ($products as $p): ?>
-                        <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
-            <label>Entrepôt
-                <select name="warehouse_id">
-                    <?php foreach ($warehouses as $w): ?>
-                        <option value="<?= (int) $w['id'] ?>"><?= e($w['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
-            <label>Type
-                <select name="type">
-                    <option value="IN">Entree</option>
-                    <option value="OUT">Sortie</option>
-                    <option value="ADJUST">Ajustement</option>
-                </select>
-            </label>
-            <label>Methode
-                <select name="method">
-                    <option value="FIFO">FIFO</option>
-                    <option value="LIFO">LIFO</option>
-                </select>
-            </label>
-            <label>Quantite<input type="number" step="0.01" name="quantity" required></label>
-            <label>Cout unitaire<input type="number" step="0.01" name="unit_cost"></label>
-            <label>Reference type<input type="text" name="reference_type" placeholder="manual/order/purchase"></label>
-            <label>Reference ID<input type="number" name="reference_id"></label>
-            <label>Notes<textarea name="notes"></textarea></label>
-            <button class="btn" type="submit">Enregistrer mouvement</button>
-        </form>
-    </article>
-
-    <article class="panel">
-        <div class="panel-header"><h3>Alertes et previsions</h3></div>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>Produit</th><th>Stock</th><th>Min</th><th>Alerte</th></tr></thead>
-                <tbody>
-                <?php if (empty($lowStock)): ?>
-                    <tr><td colspan="4" class="empty-row">Aucune alerte de stock.</td></tr>
-                <?php else: ?>
-                    <?php foreach ($lowStock as $l): ?>
-                    <tr>
-                        <td><?= e($l['name']) ?></td>
-                        <td><?= e((string) $l['current_stock']) ?></td>
-                        <td><?= e((string) $l['min_stock']) ?></td>
-                        <td><span class="badge badge-danger">Faible</span></td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="table-wrap" style="margin-top:10px;">
-            <table>
-                <thead><tr><th>Produit</th><th>Stock actuel</th><th>Min</th><th>Ecart</th></tr></thead>
-                <tbody>
-                <?php foreach (array_slice($forecast, 0, 10) as $f): ?>
-                    <?php $gap = (float) $f['min_stock'] - (float) $f['current_stock']; ?>
-                    <tr>
-                        <td><?= e($f['name']) ?></td>
-                        <td><?= e((string) $f['current_stock']) ?></td>
-                        <td><?= e((string) $f['min_stock']) ?></td>
-                        <td><?= number_format($gap, 2, ',', ' ') ?></td>
-                    </tr>
+<section id="newMovementPanel" class="panel panel-pad hidden mb-6">
+    <h3>Enregistrer un nouveau mouvement de stock</h3>
+    <form method="post" action="<?= e(url('/stocks/move')) ?>" class="grid-form-3">
+        <?= csrf_field() ?>
+        <label>Produit
+            <select name="product_id">
+                <?php foreach ($products as $p): ?>
+                    <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
                 <?php endforeach; ?>
-                </tbody>
-            </table>
+            </select>
+        </label>
+        <label>Entrepôt
+            <select name="warehouse_id">
+                <?php foreach ($warehouses as $w): ?>
+                    <option value="<?= (int) $w['id'] ?>"><?= e($w['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </label>
+        <label>Type de mouvement
+            <select name="type">
+                <option value="IN">Entrée</option>
+                <option value="OUT">Sortie</option>
+                <option value="ADJUST">Ajustement</option>
+            </select>
+        </label>
+        <label>Méthode
+            <select name="method">
+                <option value="FIFO">FIFO (First In First Out)</option>
+                <option value="LIFO">LIFO (Last In First Out)</option>
+            </select>
+        </label>
+        <label>Quantité<input type="number" step="0.01" name="quantity" required placeholder="Ex: 50"></label>
+        <label>Coût unitaire (Optionnel)<input type="number" step="0.01" name="unit_cost" placeholder="0.00"></label>
+        <label>Motif du mouvement
+            <select name="reference_type">
+                <option value="manual">Ajustement Manuel</option>
+                <option value="inventory">Correction Inventaire</option>
+                <option value="damage">Perte / Casse / Rebut</option>
+                <option value="return">Retour Client / Fournisseur</option>
+            </select>
+        </label>
+        <label class="full-width">Notes / Justification<textarea name="notes" placeholder="Expliquez la raison de ce mouvement..."></textarea></label>
+        <div class="full-width mt-4">
+            <button class="btn btn-primary" type="submit">Confirmer le mouvement</button>
         </div>
-    </article>
+    </form>
 </section>
 
 <section class="panel">

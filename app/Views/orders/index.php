@@ -1,30 +1,20 @@
 <section class="page-header">
-    <div>
-        <h2>Commandes clients</h2>
-        <p>Creation, validation, preparation, facturation et transfert vers livraison.</p>
+    <div class="header-left">
+        <h2>Commandes Clients</h2>
+        <p>Gérez vos ventes, factures et préparez les expéditions.</p>
     </div>
-    <div class="action-row">
-        <a class="btn btn-outline" href="<?= e(url('/deliveries')) ?>">Aller aux livraisons</a>
+    <div class="header-right">
+        <button class="btn btn-primary" onclick="document.getElementById('newOrderPanel').classList.toggle('hidden')">
+            <i class="fa-solid fa-file-invoice-dollar"></i> Nouvelle Commande
+        </button>
     </div>
 </section>
 
-<section class="tri-grid">
-    <article class="panel panel-pad">
-        <h3>Nouveau client</h3>
-        <form method="post" action="<?= e(url('/orders/customers')) ?>" class="grid-form">
-            <?= csrf_field() ?>
-            <label>Nom<input type="text" name="name" required></label>
-            <label>Email<input type="email" name="email"></label>
-            <label>Telephone<input type="text" name="phone"></label>
-            <label>Adresse<textarea name="address"></textarea></label>
-            <button class="btn" type="submit">Créer client</button>
-        </form>
-    </article>
-
-    <article class="panel panel-pad">
-        <h3>Nouvelle commande</h3>
-        <form method="post" action="<?= e(url('/orders')) ?>" class="grid-form">
-            <?= csrf_field() ?>
+<section id="newOrderPanel" class="panel panel-pad hidden mb-6">
+    <h3>Créer une nouvelle commande client</h3>
+    <form method="post" action="<?= e(url('/orders')) ?>" class="grid-form">
+        <?= csrf_field() ?>
+        <div class="split-grid mb-4">
             <label>Client
                 <select name="customer_id">
                     <?php foreach ($customers as $c): ?>
@@ -32,40 +22,32 @@
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Reference commande<input type="text" name="reference" value="SO-<?= date('YmdHis') ?>" required></label>
-            <label>Adresse livraison<textarea name="delivery_address"></textarea></label>
-            <div class="item-rows" data-module="order">
-                <div class="item-row">
-                    <select name="product_id[]">
-                        <?php foreach ($products as $p): ?>
-                            <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
-                        <?php endforeach; ?>
-                    </select>
-                    <input type="number" step="0.01" name="quantity[]" placeholder="Qte" required>
-                    <input type="number" step="0.01" name="unit_price[]" placeholder="Prix U" required>
-                </div>
-            </div>
-            <div class="action-row">
-                <button type="button" class="btn btn-outline add-line">Ajouter ligne produit</button>
-                <button class="btn" type="submit">Créer commande</button>
-            </div>
-        </form>
-    </article>
-
-    <article class="panel panel-pad">
-        <h3>Liens module</h3>
-        <p class="muted-text">Pilotez le cycle complet commande vers expédition.</p>
-        <div class="action-column">
-            <a class="btn btn-outline" href="<?= e(url('/customers')) ?>">Base clients</a>
-            <a class="btn btn-outline" href="<?= e(url('/deliveries')) ?>">Planifier les livraisons</a>
-            <a class="btn btn-outline" href="<?= e(url('/reports/orders')) ?>" target="_blank" rel="noopener">Rapport commandes PDF</a>
+            <label>Référence Commande<input type="text" name="reference" value="SO-<?= date('YmdHis') ?>" required></label>
+            <label>Adresse de livraison<input type="text" name="delivery_address" placeholder="Destination finale..."></label>
         </div>
-    </article>
+
+        <div class="item-rows" data-module="order">
+            <div class="item-row mb-2">
+                <select name="product_id[]" style="flex: 2;">
+                    <?php foreach ($products as $p): ?>
+                        <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="number" step="1" name="quantity[]" placeholder="Qte" required style="flex: 1;">
+                <input type="number" step="1" name="unit_price[]" placeholder="Prix Vente (FCFA)" required style="flex: 1;">
+            </div>
+        </div>
+
+        <div class="action-row mt-4">
+            <button type="button" class="btn btn-outline add-line"><i class="fa-solid fa-plus"></i> Ajouter une ligne</button>
+            <button class="btn btn-primary" type="submit">Enregistrer la commande</button>
+        </div>
+    </form>
 </section>
 
 <section class="panel">
     <div class="panel-header">
-        <h3>Suivi des commandes</h3>
+        <h3><i class="fa-solid fa-list-check"></i> Suivi du cycle des Commandes</h3>
     </div>
     <div class="table-wrap">
         <table>
@@ -77,7 +59,7 @@
                     <td><?= e($o['customer_name']) ?></td>
                     <td><span class="badge"><?= e($o['status']) ?></span></td>
                     <td><?= e($o['invoice_number']) ?></td>
-                    <td><?= number_format((float) $o['total_amount'], 2, ',', ' ') ?></td>
+                    <td><strong><?= format_currency($o['total_amount']) ?></strong></td>
                     <td class="action-grid">
                         <a class="btn btn-outline" href="<?= e(url('/orders/' . $o['id'] . '/invoice')) ?>" target="_blank" rel="noopener">Facture</a>
                         <a class="btn btn-outline" href="<?= e(url('/deliveries?order_id=' . $o['id'])) ?>">Livraison</a>

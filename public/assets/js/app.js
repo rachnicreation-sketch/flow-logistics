@@ -26,6 +26,31 @@
     });
   }
 
+  // Theme Toggle
+  const themeToggle = document.getElementById("themeToggle");
+  const body = document.body;
+  const themeIcon = themeToggle?.querySelector(".theme-icon");
+
+  const updateThemeUI = (isDark) => {
+    if (themeIcon) {
+      themeIcon.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    }
+  };
+
+  if (themeToggle) {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      body.classList.add("dark-theme");
+      updateThemeUI(true);
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = body.classList.toggle("dark-theme");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      updateThemeUI(isDark);
+    });
+  }
+
   const ensureRemoveButtons = (rows) => {
     if (!rows) return;
     const rowList = [...rows.querySelectorAll(".item-row")];

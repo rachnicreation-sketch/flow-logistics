@@ -1,18 +1,20 @@
 <section class="page-header">
-    <div>
-        <h2>Achats fournisseurs</h2>
-        <p>Bons d'achat, réception marchandises et alimentation automatique du stock.</p>
+    <div class="header-left">
+        <h2>Achats Fournisseurs</h2>
+        <p>Gérez vos approvisionnements, bons d'achat et réceptions de marchandises.</p>
     </div>
-    <div class="action-row">
-        <a class="btn btn-outline" href="<?= e(url('/stocks')) ?>">Voir les stocks</a>
+    <div class="header-right">
+        <button class="btn btn-primary" onclick="document.getElementById('newPurchasePanel').classList.toggle('hidden')">
+            <i class="fa-solid fa-cart-plus"></i> Nouveau Bon d'Achat
+        </button>
     </div>
 </section>
 
-<section class="split-grid">
-    <article class="panel panel-pad">
-        <h3>Nouveau bon d'achat</h3>
-        <form method="post" action="<?= e(url('/purchases')) ?>" class="grid-form" id="purchaseForm">
-            <?= csrf_field() ?>
+<section id="newPurchasePanel" class="panel panel-pad hidden mb-6">
+    <h3>Créer un nouveau bon d'achat</h3>
+    <form method="post" action="<?= e(url('/purchases')) ?>" class="grid-form" id="purchaseForm">
+        <?= csrf_field() ?>
+        <div class="split-grid mb-4">
             <label>Fournisseur
                 <select name="supplier_id">
                     <?php foreach ($suppliers as $s): ?>
@@ -20,32 +22,33 @@
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Reference<input type="text" name="reference" required value="PO-<?= date('YmdHis') ?>"></label>
-            <label>Date prevue<input type="date" name="expected_date"></label>
-
-            <div class="item-rows" data-module="purchase">
-                <div class="item-row">
-                    <select name="product_id[]">
-                        <?php foreach ($products as $p): ?>
-                            <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
-                        <?php endforeach; ?>
-                    </select>
-                    <input type="number" step="0.01" name="quantity[]" placeholder="Qte" required>
-                    <input type="number" step="0.01" name="unit_price[]" placeholder="Prix U" required>
-                </div>
-            </div>
-
-            <div class="action-row">
-                <button type="button" class="btn btn-outline add-line">Ajouter ligne produit</button>
-                <button class="btn" type="submit">Créer bon d'achat</button>
-            </div>
-        </form>
-    </article>
-
-    <article class="panel">
-        <div class="panel-header">
-            <h3>Historique achats</h3>
+            <label>Référence Interne<input type="text" name="reference" required value="PO-<?= date('YmdHis') ?>"></label>
+            <label>Date prévue de réception<input type="date" name="expected_date"></label>
         </div>
+
+        <div class="item-rows" data-module="purchase">
+            <div class="item-row mb-2">
+                <select name="product_id[]" style="flex: 2;">
+                    <?php foreach ($products as $p): ?>
+                        <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="number" step="1" name="quantity[]" placeholder="Qte" required style="flex: 1;">
+                <input type="number" step="1" name="unit_price[]" placeholder="Prix U (FCFA)" required style="flex: 1;">
+            </div>
+        </div>
+
+        <div class="action-row mt-4">
+            <button type="button" class="btn btn-outline add-line"><i class="fa-solid fa-plus"></i> Ajouter un produit</button>
+            <button class="btn btn-primary" type="submit">Valider la commande d'achat</button>
+        </div>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="panel-header">
+        <h3><i class="fa-solid fa-truck-loading"></i> Historique et Réceptions des Achats</h3>
+    </div>
         <div class="table-wrap">
             <table>
                 <thead><tr><th>Ref</th><th>Fournisseur</th><th>Montant</th><th>Statut</th><th>Réception</th></tr></thead>
@@ -54,8 +57,8 @@
                     <tr>
                         <td><?= e($p['reference']) ?></td>
                         <td><?= e($p['supplier_name']) ?></td>
-                        <td><?= number_format((float) $p['total_amount'], 2, ',', ' ') ?></td>
-                        <td><span class="badge"><?= e($p['status']) ?></span></td>
+                        <td><strong><?= format_currency($p['total_amount']) ?></strong></td>
+                        <td><span class="badge badge-info"><?= e($p['status']) ?></span></td>
                         <td>
                             <?php if ($p['status'] !== 'received'): ?>
                                 <form method="post" action="<?= e(url('/purchases/' . $p['id'] . '/receive')) ?>" class="inline-form">

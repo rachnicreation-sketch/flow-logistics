@@ -104,3 +104,9 @@ if (!function_exists('csrf_field')) {
     }
 }
 
+if (!function_exists('format_currency')) {
+    function format_currency(mixed $amount): string
+    {
+        return number_format((float) $amount, 0, ',', ' ') . ' FCFA';
+    }
+}

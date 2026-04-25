@@ -1,36 +1,43 @@
 <section class="page-header">
-    <div>
-        <h2>Transport et livraisons (TMS)</h2>
-        <p>Planification, affectation chauffeurs/véhicules et suivi de statut.</p>
+    <div class="header-left">
+        <h2>Transport et Livraisons (TMS)</h2>
+        <p>Planification, affectation des chauffeurs et suivi des statuts de transport.</p>
     </div>
-    <div class="action-row">
-        <a class="btn btn-outline" href="<?= e(url('/orders')) ?>">Voir les commandes</a>
+    <div class="header-right">
+        <button class="btn btn-outline" onclick="document.getElementById('newVehiclePanel').classList.toggle('hidden')">
+            <i class="fa-solid fa-truck"></i> Nouveau Véhicule
+        </button>
+        <button class="btn btn-primary" onclick="document.getElementById('newDeliveryPanel').classList.toggle('hidden')">
+            <i class="fa-solid fa-calendar-plus"></i> Planifier Livraison
+        </button>
     </div>
 </section>
 
-<section class="tri-grid">
-    <article class="panel panel-pad">
-        <h3>Nouveau véhicule</h3>
-        <form method="post" action="<?= e(url('/deliveries/vehicles')) ?>" class="grid-form">
+<div class="mb-6">
+    <section id="newVehiclePanel" class="panel panel-pad hidden mb-4">
+        <h3>Enregistrer un nouveau véhicule</h3>
+        <form method="post" action="<?= e(url('/deliveries/vehicles')) ?>" class="grid-form-3">
             <?= csrf_field() ?>
-            <label>Matricule<input type="text" name="plate_number" required></label>
-            <label>Modele<input type="text" name="model"></label>
-            <label>Capacité<input type="number" step="0.01" name="capacity"></label>
-            <label>Statut
+            <label>Matricule / Plaque<input type="text" name="plate_number" required placeholder="Ex: AA-123-BB"></label>
+            <label>Modèle / Marque<input type="text" name="model" placeholder="Ex: Renault Master"></label>
+            <label>Capacité utile (kg/m3)<input type="number" step="0.01" name="capacity" placeholder="0.00"></label>
+            <label>Statut initial
                 <select name="status">
                     <option value="available">Disponible</option>
-                    <option value="maintenance">Maintenance</option>
+                    <option value="maintenance">En maintenance</option>
                 </select>
             </label>
-            <button class="btn" type="submit">Créer véhicule</button>
+            <div class="full-width mt-4">
+                <button class="btn btn-primary" type="submit">Créer le véhicule</button>
+            </div>
         </form>
-    </article>
+    </section>
 
-    <article class="panel panel-pad">
-        <h3>Planifier une livraison</h3>
-        <form method="post" action="<?= e(url('/deliveries')) ?>" class="grid-form">
+    <section id="newDeliveryPanel" class="panel panel-pad hidden mb-4">
+        <h3>Planifier une nouvelle livraison</h3>
+        <form method="post" action="<?= e(url('/deliveries')) ?>" class="grid-form-3">
             <?= csrf_field() ?>
-            <label>Commande
+            <label>Commande à livrer
                 <select name="order_id">
                     <?php foreach ($orders as $o): ?>
                         <option value="<?= (int) $o['id'] ?>" <?= (int) ($selectedOrderId ?? 0) === (int) $o['id'] ? 'selected' : '' ?>>
@@ -39,41 +46,34 @@
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Véhicule
+            <label>Véhicule assigné
                 <select name="vehicle_id">
-                    <option value="">-</option>
+                    <option value="">Sélectionner un véhicule...</option>
                     <?php foreach ($vehicles as $v): ?>
-                        <option value="<?= (int) $v['id'] ?>"><?= e($v['plate_number']) ?></option>
+                        <option value="<?= (int) $v['id'] ?>"><?= e($v['plate_number']) ?> (<?= e($v['model']) ?>)</option>
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Chauffeur
+            <label>Chauffeur assigné
                 <select name="driver_id">
-                    <option value="">-</option>
+                    <option value="">Sélectionner un chauffeur...</option>
                     <?php foreach ($drivers as $d): ?>
                         <option value="<?= (int) $d['id'] ?>"><?= e($d['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Date prevue<input type="datetime-local" name="planned_date"></label>
-            <label>Notes<textarea name="notes"></textarea></label>
-            <button class="btn" type="submit">Planifier</button>
+            <label>Date et heure prévues<input type="datetime-local" name="planned_date"></label>
+            <label class="full-width">Notes de livraison<textarea name="notes" placeholder="Instructions pour le chauffeur..."></textarea></label>
+            <div class="full-width mt-4">
+                <button class="btn btn-primary" type="submit">Confirmer la planification</button>
+            </div>
         </form>
-    </article>
-
-    <article class="panel panel-pad">
-        <h3>Exports et reporting</h3>
-        <p class="muted-text">Retrouvez les exports transport et les indicateurs d'exploitation.</p>
-        <div class="action-column">
-            <a class="btn btn-outline" href="<?= e(url('/reports/deliveries')) ?>" target="_blank" rel="noopener">Rapport livraisons PDF</a>
-            <a class="btn btn-outline" href="<?= e(url('/reports')) ?>">Centre rapports</a>
-        </div>
-    </article>
-</section>
+    </section>
+</div>
 
 <section class="panel">
     <div class="panel-header">
-        <h3>Suivi des livraisons</h3>
+        <h3><i class="fa-solid fa-truck-ramp-box"></i> Suivi opérationnel des livraisons</h3>
     </div>
     <div class="table-wrap">
         <table>
