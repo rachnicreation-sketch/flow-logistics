@@ -42,9 +42,9 @@ final class OrderController extends Controller
                 'address' => $this->input('address'),
             ]);
             (new AuditService())->log('CREATE', 'customers', $id, ['name' => $name]);
-            Flash::set('success', 'Client crÃƒÂ©ÃƒÂ©.');
+            Flash::set('success', 'Client créé.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de crÃƒÂ©er le client: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer le client: ' . $e->getMessage());
         }
 
         $this->redirect('/orders');
@@ -55,7 +55,7 @@ final class OrderController extends Controller
         $customerId = (int) $this->input('customer_id');
         $reference = trim((string) $this->input('reference'));
         if ($customerId <= 0 || $reference === '') {
-            Flash::set('error', 'Client et rÃƒÂ©fÃƒÂ©rence commande sont obligatoires.');
+            Flash::set('error', 'Client et référence commande sont obligatoires.');
             $this->redirect('/orders');
         }
 
@@ -83,9 +83,9 @@ final class OrderController extends Controller
             }
 
             (new AuditService())->log('CREATE', 'orders', $id, ['reference' => $reference]);
-            Flash::set('success', 'Commande client crÃƒÂ©ÃƒÂ©e.');
+            Flash::set('success', 'Commande client créée.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de crÃƒÂ©er la commande: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer la commande: ' . $e->getMessage());
         }
 
         $this->redirect('/orders');
@@ -96,7 +96,7 @@ final class OrderController extends Controller
         try {
             (new Order())->updateStatus($id, 'validated');
             (new AuditService())->log('VALIDATE', 'orders', $id);
-            Flash::set('success', 'Commande validÃƒÂ©e.');
+            Flash::set('success', 'Commande validée.');
         } catch (\Throwable $e) {
             Flash::set('error', 'Erreur validation commande: ' . $e->getMessage());
         }
@@ -109,15 +109,15 @@ final class OrderController extends Controller
         $warehouseId = (int) $this->input('warehouse_id');
         $method = (string) $this->input('method', 'FIFO');
         if ($warehouseId <= 0) {
-            Flash::set('error', 'EntrepÃƒÂ´t requis.');
+            Flash::set('error', 'Entrepôt requis.');
             $this->redirect('/orders');
         }
         try {
             (new StockService())->fulfillOrder($id, $warehouseId, null, $method);
             (new AuditService())->log('PREPARE', 'orders', $id, ['warehouse_id' => $warehouseId, 'method' => $method]);
-            Flash::set('success', 'Commande prÃƒÂ©parÃƒÂ©e, stock dÃƒÂ©crÃƒÂ©mentÃƒÂ©.');
+            Flash::set('success', 'Commande préparée, stock décrémenté.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur prÃƒÂ©paration: ' . $e->getMessage());
+            Flash::set('error', 'Erreur préparation: ' . $e->getMessage());
         }
         $this->redirect('/orders');
     }

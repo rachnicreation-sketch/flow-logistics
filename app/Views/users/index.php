@@ -21,7 +21,7 @@ $roleLabel = static function (string $slug): string {
 
 <section class="split-grid">
     <article class="panel panel-pad">
-        <h3>Creer un utilisateur</h3>
+        <h3>Créer un utilisateur</h3>
         <form method="post" action="<?= e(url('/users')) ?>" class="grid-form">
             <?= csrf_field() ?>
             <label>Nom<input type="text" name="name" required></label>
@@ -44,7 +44,7 @@ $roleLabel = static function (string $slug): string {
                     <?php endforeach; ?>
                 </select>
             </label>
-            <button class="btn" type="submit">Creer</button>
+            <button class="btn" type="submit">Créer</button>
         </form>
     </article>
 

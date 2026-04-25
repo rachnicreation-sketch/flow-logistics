@@ -30,13 +30,13 @@ final class PurchaseController extends Controller
         $supplierId = (int) $this->input('supplier_id');
         $reference = trim((string) $this->input('reference'));
         if ($supplierId <= 0 || $reference === '') {
-            Flash::set('error', 'Fournisseur et rÃƒÂ©fÃƒÂ©rence sont requis.');
+            Flash::set('error', 'Fournisseur et référence sont requis.');
             $this->redirect('/purchases');
         }
 
         $items = $this->extractItems();
         if (empty($items)) {
-            Flash::set('error', 'Au moins une ligne produit est nÃƒÂ©cessaire.');
+            Flash::set('error', 'Au moins une ligne produit est nécessaire.');
             $this->redirect('/purchases');
         }
 
@@ -51,9 +51,9 @@ final class PurchaseController extends Controller
             ], $items);
 
             (new AuditService())->log('CREATE', 'purchases', $id, ['reference' => $reference]);
-            Flash::set('success', 'Bon de commande fournisseur crÃƒÂ©ÃƒÂ©.');
+            Flash::set('success', 'Bon de commande fournisseur créé.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de crÃƒÂ©er l\'achat: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer l\'achat: ' . $e->getMessage());
         }
 
         $this->redirect('/purchases');
@@ -63,16 +63,16 @@ final class PurchaseController extends Controller
     {
         $warehouseId = (int) $this->input('warehouse_id');
         if ($warehouseId <= 0) {
-            Flash::set('error', 'EntrepÃƒÂ´t requis pour la rÃƒÂ©ception.');
+            Flash::set('error', 'Entrepôt requis pour la réception.');
             $this->redirect('/purchases');
         }
 
         try {
             (new StockService())->receivePurchase($id, $warehouseId, null);
             (new AuditService())->log('RECEIVE', 'purchases', $id, ['warehouse_id' => $warehouseId]);
-            Flash::set('success', 'Achat rÃƒÂ©ceptionnÃƒÂ© et stock mis ÃƒÂ  jour.');
+            Flash::set('success', 'Achat réceptionné et stock mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur rÃƒÂ©ception: ' . $e->getMessage());
+            Flash::set('error', 'Erreur réception: ' . $e->getMessage());
         }
         $this->redirect('/purchases');
     }

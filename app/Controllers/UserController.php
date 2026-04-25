@@ -70,9 +70,9 @@ final class UserController extends Controller
             ]);
 
             (new AuditService())->log('CREATE', 'users', $id, ['email' => $email]);
-            Flash::set('success', 'Utilisateur cree.');
+            Flash::set('success', 'Utilisateur créé.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer l\'utilisateur: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer l\'utilisateur: ' . $e->getMessage());
         }
 
         $this->redirect('/users');
@@ -114,9 +114,9 @@ final class UserController extends Controller
                 'is_active' => (int) $this->input('is_active', 1),
             ]);
             (new AuditService())->log('UPDATE', 'users', $id, ['email' => $email]);
-            Flash::set('success', 'Utilisateur mis a jour.');
+            Flash::set('success', 'Utilisateur mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour utilisateur: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour utilisateur: ' . $e->getMessage());
         }
 
         $this->redirect('/users/' . $id);
@@ -166,7 +166,7 @@ final class UserController extends Controller
         $newStatus = (int) !(int) $target['is_active'];
         $model->setStatus($id, $newStatus);
         (new AuditService())->log('TOGGLE_STATUS', 'users', $id, ['active' => $newStatus]);
-        Flash::set('success', 'Statut utilisateur mis a jour.');
+        Flash::set('success', 'Statut utilisateur mis à jour.');
         $this->redirect('/users');
     }
 

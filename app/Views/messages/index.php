@@ -36,11 +36,11 @@
 
     <article class="panel">
         <div class="panel-header">
-            <h3>Boite de reception</h3>
+            <h3>Boîte de réception</h3>
         </div>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>Date</th><th>Expediteur</th><th>Sujet</th><th>Message</th><th>Action</th></tr></thead>
+                <thead><tr><th>Date</th><th>Expéditeur</th><th>Sujet</th><th>Message</th><th>Action</th></tr></thead>
                 <tbody>
                 <?php if (empty($inbox)): ?>
                     <tr><td colspan="5" class="empty-row">Aucun message recu.</td></tr>

@@ -1,6 +1,6 @@
 <section class="page-header">
     <h2>Notifications</h2>
-    <p>Alertes stock, commandes et ÃƒÂ©vÃƒÂ©nements systÃƒÂ¨me.</p>
+    <p>Alertes stock, commandes et événements système.</p>
 </section>
 
 <section class="panel">

@@ -3,3 +3,7 @@
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
 </IfModule>
+
+<IfModule mod_mime.c>
+    AddDefaultCharset UTF-8
+</IfModule>

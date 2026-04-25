@@ -10,7 +10,7 @@
             <?= csrf_field() ?>
             <label>Nom<input type="text" name="name" required></label>
             <label>Description<textarea name="description"></textarea></label>
-            <button class="btn" type="submit">Creer categorie</button>
+            <button class="btn" type="submit">Créer categorie</button>
         </form>
     </article>
 
@@ -42,7 +42,7 @@
             <label>Prix achat<input type="number" step="0.01" name="purchase_price"></label>
             <label>Prix vente<input type="number" step="0.01" name="sale_price"></label>
             <label>Stock minimum<input type="number" step="0.01" name="min_stock"></label>
-            <button class="btn" type="submit">Creer produit</button>
+            <button class="btn" type="submit">Créer produit</button>
         </form>
     </article>
 

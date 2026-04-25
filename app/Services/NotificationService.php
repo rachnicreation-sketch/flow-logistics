@@ -44,14 +44,14 @@ final class NotificationService
     public function lowStockAlert(string $productName, float $qty, float $min): void
     {
         $title = 'Alerte de stock faible';
-        $message = sprintf('Le produit %s est ÃƒÂ  %.2f (minimum: %.2f).', $productName, $qty, $min);
+        $message = sprintf('Le produit %s est à %.2f (minimum: %.2f).', $productName, $qty, $min);
         $this->inApp(null, 'stock', $title, $message);
     }
 
     public function orderConfirmation(string $customerEmail, string $orderReference): void
     {
         $subject = 'Confirmation de commande ' . $orderReference;
-        $body = "Votre commande {$orderReference} a bien ÃƒÂ©tÃƒÂ© enregistrÃƒÂ©e.";
+        $body = "Votre commande {$orderReference} a bien été enregistrée.";
         $this->email($customerEmail, $subject, $body);
     }
 }

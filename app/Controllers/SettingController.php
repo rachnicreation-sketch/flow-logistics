@@ -31,7 +31,7 @@ final class SettingController extends Controller
             $model->upsert($k, $v);
         }
         (new AuditService())->log('UPDATE', 'settings', null, $pairs);
-        Flash::set('success', 'ParamÃƒÂ¨tres sauvegardÃƒÂ©s.');
+        Flash::set('success', 'Paramètres sauvegardés.');
         $this->redirect('/settings');
     }
 }

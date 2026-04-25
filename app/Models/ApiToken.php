@@ -13,6 +13,9 @@ final class ApiToken extends Model
 
     public function issue(int $companyId, int $userId, int $ttlHours = 24): string
     {
+        $this->purgeExpired();
+        $this->revokeAllForUser($userId);
+
         $token = bin2hex(random_bytes(32));
         $stmt = $this->db->prepare(
             'INSERT INTO api_tokens (company_id, user_id, token, expires_at, created_at)
@@ -41,5 +44,21 @@ final class ApiToken extends Model
         $stmt->execute(['token' => hash('sha256', $plainToken)]);
         return $stmt->fetch() ?: null;
     }
-}
 
+    public function revoke(string $plainToken): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM api_tokens WHERE token = :token');
+        return $stmt->execute(['token' => hash('sha256', $plainToken)]);
+    }
+
+    public function revokeAllForUser(int $userId): void
+    {
+        $stmt = $this->db->prepare('DELETE FROM api_tokens WHERE user_id = :user_id');
+        $stmt->execute(['user_id' => $userId]);
+    }
+
+    public function purgeExpired(): void
+    {
+        $this->db->exec('DELETE FROM api_tokens WHERE expires_at <= NOW()');
+    }
+}

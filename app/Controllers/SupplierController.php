@@ -89,9 +89,9 @@ final class SupplierController extends Controller
                 'status' => $this->input('status', 'active'),
             ]);
             (new AuditService())->log('UPDATE', 'suppliers', $id, ['name' => $name]);
-            Flash::set('success', 'Fournisseur mis a jour.');
+            Flash::set('success', 'Fournisseur mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour fournisseur: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour fournisseur: ' . $e->getMessage());
         }
 
         $this->redirect('/suppliers/' . $id);

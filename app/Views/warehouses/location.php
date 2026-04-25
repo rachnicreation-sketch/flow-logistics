@@ -10,10 +10,10 @@
 
 <section class="panel panel-pad">
     <div class="ticket-meta-grid">
-        <div><strong>Entrepot:</strong> <?= e($location['warehouse_name']) ?> (<?= e($location['warehouse_code']) ?>)</div>
+        <div><strong>Entrepôt:</strong> <?= e($location['warehouse_name']) ?> (<?= e($location['warehouse_code']) ?>)</div>
         <div><strong>Zone:</strong> <?= e($location['zone_name']) ?></div>
-        <div><strong>Capacite:</strong> <?= e((string) ($location['capacity'] ?? '-')) ?></div>
+        <div><strong>Capacité:</strong> <?= e((string) ($location['capacity'] ?? '-')) ?></div>
         <div><strong>Stock cumule:</strong> <?= number_format((float) ($location['stock_quantity'] ?? 0), 2, ',', ' ') ?></div>
-        <div><strong>Cree le:</strong> <?= e($location['created_at']) ?></div>
+        <div><strong>Créé le:</strong> <?= e($location['created_at']) ?></div>
     </div>
 </section>

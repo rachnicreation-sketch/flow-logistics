@@ -9,7 +9,7 @@
     <article class="kpi-card">
         <span class="kpi-label">Stock global</span>
         <strong><?= number_format((float) $metrics['stock_total'], 2, ',', ' ') ?></strong>
-        <span class="kpi-sub">Unites en entrepot</span>
+        <span class="kpi-sub">Unités en entrepot</span>
     </article>
     <article class="kpi-card <?= $metrics['ruptures'] > 0 ? 'warning' : 'success' ?>">
         <span class="kpi-label">Rupture / alerte</span>
@@ -32,17 +32,17 @@
     <a class="module-card" href="<?= e(url('/suppliers')) ?>">
         <span class="module-chip">01</span>
         <h3>Fournisseurs</h3>
-        <p>Referentiel partenaires et historique achats.</p>
+        <p>Référentiel partenaires et historique achats.</p>
     </a>
     <a class="module-card" href="<?= e(url('/purchases')) ?>">
         <span class="module-chip">02</span>
         <h3>Achats</h3>
-        <p>Creation des bons et reception marchandises.</p>
+        <p>Creation des bons et réception marchandises.</p>
     </a>
     <a class="module-card" href="<?= e(url('/stocks')) ?>">
         <span class="module-chip">03</span>
         <h3>Stocks</h3>
-        <p>Mouvements FIFO/LIFO et disponibilite temps reel.</p>
+        <p>Mouvements FIFO/LIFO et disponibilite temps réel.</p>
     </a>
     <a class="module-card" href="<?= e(url('/orders')) ?>">
         <span class="module-chip">04</span>

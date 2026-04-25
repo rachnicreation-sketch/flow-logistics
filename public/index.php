@@ -114,21 +114,22 @@ $router->post('/settings', [SettingController::class, 'save'], ['auth', 'permiss
 
 $router->get('/notifications', [NotificationController::class, 'index'], ['auth', 'permission:dashboard.view']);
 
-$router->get('/messages', [MessageController::class, 'index'], ['auth', 'permission:dashboard.view']);
-$router->post('/messages', [MessageController::class, 'store'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/messages/{id}/read', [MessageController::class, 'markRead'], ['auth', 'permission:dashboard.view', 'csrf']);
+$router->get('/messages', [MessageController::class, 'index'], ['auth', 'permission:messages.manage']);
+$router->post('/messages', [MessageController::class, 'store'], ['auth', 'permission:messages.manage', 'csrf']);
+$router->post('/messages/{id}/read', [MessageController::class, 'markRead'], ['auth', 'permission:messages.manage', 'csrf']);
 
-$router->get('/tickets', [TicketController::class, 'index'], ['auth', 'permission:dashboard.view']);
-$router->post('/tickets', [TicketController::class, 'store'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/assign', [TicketController::class, 'assign'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/assign-self', [TicketController::class, 'assignSelf'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/status', [TicketController::class, 'updateStatus'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/priority', [TicketController::class, 'updatePriority'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/comment', [TicketController::class, 'addComment'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/close', [TicketController::class, 'close'], ['auth', 'permission:dashboard.view', 'csrf']);
-$router->post('/tickets/{id}/reopen', [TicketController::class, 'reopen'], ['auth', 'permission:dashboard.view', 'csrf']);
+$router->get('/tickets', [TicketController::class, 'index'], ['auth', 'permission:tickets.manage']);
+$router->post('/tickets', [TicketController::class, 'store'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/assign', [TicketController::class, 'assign'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/assign-self', [TicketController::class, 'assignSelf'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/status', [TicketController::class, 'updateStatus'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/priority', [TicketController::class, 'updatePriority'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/comment', [TicketController::class, 'addComment'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/close', [TicketController::class, 'close'], ['auth', 'permission:tickets.manage', 'csrf']);
+$router->post('/tickets/{id}/reopen', [TicketController::class, 'reopen'], ['auth', 'permission:tickets.manage', 'csrf']);
 
 $router->post('/api/login', [ApiController::class, 'login']);
+$router->post('/api/logout', [ApiController::class, 'logout']);
 $router->get('/api/driver/deliveries', [ApiController::class, 'driverDeliveries']);
 $router->post('/api/driver/deliveries/{id}/status', [ApiController::class, 'updateDriverDeliveryStatus']);
 

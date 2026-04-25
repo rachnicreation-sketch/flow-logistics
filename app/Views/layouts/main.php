@@ -35,7 +35,7 @@ if (!function_exists('layout_is_active')) {
     <aside class="sidebar">
         <div class="brand">
             <h1>Flow Logistics</h1>
-            <p>Plateforme SCM complete</p>
+            <p>Plateforme SCM complète</p>
         </div>
 
         <nav class="menu">
@@ -76,7 +76,7 @@ if (!function_exists('layout_is_active')) {
             <?php if (Auth::can('warehouses.manage')): ?>
             <a href="<?= e(url('/warehouses')) ?>" class="<?= layout_is_active('/warehouses', $currentPath) ?>">
                 <span class="menu-mark">WH</span>
-                <span>Entrepots</span>
+                <span>Entrepôts</span>
             </a>
             <?php endif; ?>
 
@@ -123,25 +123,29 @@ if (!function_exists('layout_is_active')) {
             </a>
             <?php endif; ?>
 
-            <?php if (Auth::can('reports.view') || Auth::can('settings.manage') || Auth::can('dashboard.view')): ?>
+            <?php if (Auth::can('reports.view') || Auth::can('settings.manage') || Auth::can('dashboard.view') || Auth::can('messages.manage') || Auth::can('tickets.manage')): ?>
             <div class="menu-group">Pilotage</div>
             <?php endif; ?>
 
-            <?php if (Auth::can('dashboard.view')): ?>
+            <?php if (Auth::can('messages.manage')): ?>
             <a href="<?= e(url('/messages')) ?>" class="<?= layout_is_active('/messages', $currentPath) ?>">
                 <span class="menu-mark">MS</span>
                 <span>Messages</span>
             </a>
+            <?php endif; ?>
+
+            <?php if (Auth::can('dashboard.view')): ?>
             <a href="<?= e(url('/notifications')) ?>" class="<?= layout_is_active('/notifications', $currentPath) ?>">
                 <span class="menu-mark">NT</span>
                 <span>Notifications</span>
             </a>
-            <?php if (($user['role_slug'] ?? '') !== 'driver'): ?>
-                <a href="<?= e(url('/tickets')) ?>" class="<?= layout_is_active('/tickets', $currentPath) ?>">
-                    <span class="menu-mark">TK</span>
-                    <span>Ticketing</span>
-                </a>
             <?php endif; ?>
+
+            <?php if (Auth::can('tickets.manage')): ?>
+            <a href="<?= e(url('/tickets')) ?>" class="<?= layout_is_active('/tickets', $currentPath) ?>">
+                <span class="menu-mark">TK</span>
+                <span>Ticketing</span>
+            </a>
             <?php endif; ?>
 
             <?php if (Auth::can('reports.view')): ?>
@@ -158,12 +162,12 @@ if (!function_exists('layout_is_active')) {
             <?php if (Auth::can('settings.manage')): ?>
             <a href="<?= e(url('/settings')) ?>" class="<?= layout_is_active('/settings', $currentPath) ?>">
                 <span class="menu-mark">ST</span>
-                <span>Parametres</span>
+                <span>Paramètres</span>
             </a>
             <?php endif; ?>
         </nav>
 
-        <div class="sidebar-footer">Flow Logistics Â© 2026</div>
+        <div class="sidebar-footer">Flow Logistics © 2026</div>
     </aside>
 
     <main class="main-content">
@@ -174,7 +178,7 @@ if (!function_exists('layout_is_active')) {
             </div>
             <form method="post" action="<?= e(url('/logout')) ?>">
                 <?= csrf_field() ?>
-                <button class="btn btn-outline btn-sm" type="submit">Deconnexion</button>
+                <button class="btn btn-outline btn-sm" type="submit">Déconnexion</button>
             </form>
         </header>
 

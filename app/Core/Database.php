@@ -35,10 +35,13 @@ final class Database
             ]);
         } catch (PDOException $e) {
             http_response_code(500);
-            exit('Erreur de connexion ÃƒÂ  la base de donnÃƒÂ©es: ' . $e->getMessage());
+            error_log('[database] Connection failed: ' . $e->getMessage());
+            $message = (bool) config('app.debug', false)
+                ? 'Erreur de connexion a la base de donnees.'
+                : 'Erreur interne.';
+            exit($message);
         }
 
         return self::$connection;
     }
 }
-

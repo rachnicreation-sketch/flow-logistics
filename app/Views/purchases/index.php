@@ -1,7 +1,7 @@
 <section class="page-header">
     <div>
         <h2>Achats fournisseurs</h2>
-        <p>Bons d'achat, reception marchandises et alimentation automatique du stock.</p>
+        <p>Bons d'achat, réception marchandises et alimentation automatique du stock.</p>
     </div>
     <div class="action-row">
         <a class="btn btn-outline" href="<?= e(url('/stocks')) ?>">Voir les stocks</a>
@@ -37,7 +37,7 @@
 
             <div class="action-row">
                 <button type="button" class="btn btn-outline add-line">Ajouter ligne produit</button>
-                <button class="btn" type="submit">Creer bon d'achat</button>
+                <button class="btn" type="submit">Créer bon d'achat</button>
             </div>
         </form>
     </article>
@@ -48,7 +48,7 @@
         </div>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>Ref</th><th>Fournisseur</th><th>Montant</th><th>Statut</th><th>Reception</th></tr></thead>
+                <thead><tr><th>Ref</th><th>Fournisseur</th><th>Montant</th><th>Statut</th><th>Réception</th></tr></thead>
                 <tbody>
                 <?php foreach ($purchases as $p): ?>
                     <tr>
@@ -65,7 +65,7 @@
                                             <option value="<?= (int) $w['id'] ?>"><?= e($w['name']) ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <button class="btn btn-outline" type="submit">Receptionner</button>
+                                    <button class="btn btn-outline" type="submit">Réceptionner</button>
                                 </form>
                             <?php else: ?>
                                 <div class="action-row">

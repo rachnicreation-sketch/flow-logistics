@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+ini_set('default_charset', 'UTF-8');
+if (function_exists('mb_internal_encoding')) {
+    mb_internal_encoding('UTF-8');
+}
+
+if (!headers_sent()) {
+    header('Content-Type: text/html; charset=UTF-8');
+}
+
 if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params([
         'httponly' => true,
@@ -30,4 +39,3 @@ spl_autoload_register(static function (string $class): void {
 });
 
 require_once __DIR__ . '/Core/helpers.php';
-

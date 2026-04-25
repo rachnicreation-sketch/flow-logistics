@@ -32,7 +32,7 @@ final class WarehouseController extends Controller
         $model = new Warehouse();
         $warehouse = $model->detail($id);
         if (!$warehouse) {
-            Flash::set('error', 'Entrepot introuvable.');
+            Flash::set('error', 'Entrepôt introuvable.');
             $this->redirect('/warehouses');
         }
 
@@ -71,9 +71,9 @@ final class WarehouseController extends Controller
                 'address' => $this->input('address'),
             ]);
             (new AuditService())->log('CREATE', 'warehouses', $id, ['code' => $code]);
-            Flash::set('success', 'Entrepot cree.');
+            Flash::set('success', 'Entrepôt créé.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer l\'entrepot: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer l\'entrepot: ' . $e->getMessage());
         }
 
         $this->redirect('/warehouses');
@@ -94,9 +94,9 @@ final class WarehouseController extends Controller
                 'name' => $name,
             ]);
             (new AuditService())->log('CREATE', 'warehouse_zones', $id, ['warehouse_id' => $warehouseId]);
-            Flash::set('success', 'Zone creee.');
+            Flash::set('success', 'Zone créée.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer la zone: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer la zone: ' . $e->getMessage());
         }
 
         $this->redirect('/warehouses');

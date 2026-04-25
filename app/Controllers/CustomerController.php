@@ -81,9 +81,9 @@ final class CustomerController extends Controller
                 'address' => $this->input('address'),
             ]);
             (new AuditService())->log('UPDATE', 'customers', $id, ['name' => $name]);
-            Flash::set('success', 'Client mis a jour.');
+            Flash::set('success', 'Client mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour client: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour client: ' . $e->getMessage());
         }
 
         $this->redirect('/customers/' . $id);

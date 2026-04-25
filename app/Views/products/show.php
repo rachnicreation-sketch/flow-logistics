@@ -71,7 +71,7 @@
     </div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Entrepot</th><th>Emplacement</th><th>Quantite</th><th>Action</th></tr></thead>
+            <thead><tr><th>Entrepôt</th><th>Emplacement</th><th>Quantite</th><th>Action</th></tr></thead>
             <tbody>
             <?php if (empty($stocks)): ?>
                 <tr><td colspan="4" class="empty-row">Aucune ligne de stock pour ce produit.</td></tr>

@@ -17,7 +17,7 @@
             <label>Email<input type="email" name="email"></label>
             <label>Telephone<input type="text" name="phone"></label>
             <label>Adresse<textarea name="address"></textarea></label>
-            <button class="btn" type="submit">Creer client</button>
+            <button class="btn" type="submit">Créer client</button>
         </form>
     </article>
 
@@ -47,14 +47,14 @@
             </div>
             <div class="action-row">
                 <button type="button" class="btn btn-outline add-line">Ajouter ligne produit</button>
-                <button class="btn" type="submit">Creer commande</button>
+                <button class="btn" type="submit">Créer commande</button>
             </div>
         </form>
     </article>
 
     <article class="panel panel-pad">
         <h3>Liens module</h3>
-        <p class="muted-text">Pilotez le cycle complet commande vers expedition.</p>
+        <p class="muted-text">Pilotez le cycle complet commande vers expédition.</p>
         <div class="action-column">
             <a class="btn btn-outline" href="<?= e(url('/customers')) ?>">Base clients</a>
             <a class="btn btn-outline" href="<?= e(url('/deliveries')) ?>">Planifier les livraisons</a>

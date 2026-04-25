@@ -30,7 +30,7 @@ final class StockService
     {
         $qty = (float) $data['quantity'];
         if ($qty <= 0) {
-            throw new RuntimeException('La quantitÃƒÂ© doit ÃƒÂªtre positive.');
+            throw new RuntimeException('La quantité doit être positive.');
         }
 
         $type = strtoupper($data['type']);
@@ -101,7 +101,7 @@ final class StockService
                 'unit_cost' => (float) $item['unit_price'],
                 'reference_type' => 'purchase',
                 'reference_id' => $purchaseId,
-                'notes' => 'RÃƒÂ©ception achat ' . $purchaseId,
+                'notes' => 'Réception achat ' . $purchaseId,
             ]);
         }
         $purchaseModel->markReceived($purchaseId);
@@ -186,7 +186,7 @@ final class StockService
         }
 
         if ($remaining > 0) {
-            throw new RuntimeException('Stock insuffisant pour la mÃƒÂ©thode ' . $method . '.');
+            throw new RuntimeException('Stock insuffisant pour la méthode ' . $method . '.');
         }
     }
 }

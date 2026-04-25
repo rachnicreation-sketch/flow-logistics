@@ -15,7 +15,7 @@
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Entrepot
+            <label>Entrepôt
                 <select name="warehouse_id">
                     <?php foreach ($warehouses as $w): ?>
                         <option value="<?= (int) $w['id'] ?>"><?= e($w['name']) ?></option>
@@ -89,7 +89,7 @@
     <div class="panel-header"><h3>Stock courant par emplacement</h3></div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Produit</th><th>SKU</th><th>Entrepot</th><th>Emplacement</th><th>Quantite</th><th>Detail</th></tr></thead>
+            <thead><tr><th>Produit</th><th>SKU</th><th>Entrepôt</th><th>Emplacement</th><th>Quantite</th><th>Detail</th></tr></thead>
             <tbody>
             <?php foreach ($summary as $row): ?>
                 <tr>

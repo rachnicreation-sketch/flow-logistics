@@ -46,9 +46,9 @@ final class CompanyController extends Controller
                 'status' => $this->input('status', 'active'),
             ]);
             (new AuditService())->log('CREATE', 'companies', $id, ['name' => $name, 'code' => $code]);
-            Flash::set('success', 'Entreprise creee.');
+            Flash::set('success', 'Entreprise créée.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer l\'entreprise: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer l\'entreprise: ' . $e->getMessage());
         }
 
         $this->redirect('/companies');

@@ -51,7 +51,7 @@ final class TicketController extends Controller
     public function store(): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
@@ -63,7 +63,7 @@ final class TicketController extends Controller
         }
 
         try {
-            $assignedTo = $this->nullableInt($this->input('assigned_to'));
+            $assignédTo = $this->nullableInt($this->input('assignéd_to'));
             $ticketId = (new Ticket())->createTicket([
                 'company_id' => $this->nullableInt($this->input('company_id')),
                 'ticket_number' => $this->generateTicketNumber(),
@@ -72,24 +72,24 @@ final class TicketController extends Controller
                 'module_name' => $this->input('module_name'),
                 'priority' => (string) $this->input('priority', 'medium'),
                 'reporter_id' => Auth::id(),
-                'assigned_to' => $assignedTo,
+                'assignéd_to' => $assignédTo,
                 'due_at' => $this->normalizeDateTime((string) $this->input('due_at', '')),
             ]);
 
-            if ($assignedTo !== null && $assignedTo !== Auth::id()) {
+            if ($assignédTo !== null && $assignédTo !== Auth::id()) {
                 (new Notification())->createForUser(
-                    $assignedTo,
-                    'ticket_assigned',
-                    'Nouveau ticket assigne',
-                    'Vous avez ete assigne au ticket #' . $ticketId . '.'
+                    $assignédTo,
+                    'ticket_assignéd',
+                    'Nouveau ticket assigné',
+                    'Vous avez ete assigné au ticket #' . $ticketId . '.'
                 );
             }
 
             (new AuditService())->log('CREATE', 'tickets', $ticketId, ['title' => $title]);
-            Flash::set('success', 'Ticket cree avec succes.');
+            Flash::set('success', 'Ticket créé avec succes.');
             $this->redirect('/tickets#ticket-' . $ticketId);
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer le ticket: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer le ticket: ' . $e->getMessage());
             $this->redirect('/tickets');
         }
     }
@@ -97,7 +97,7 @@ final class TicketController extends Controller
     public function assign(int $id): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
@@ -109,20 +109,20 @@ final class TicketController extends Controller
         }
 
         try {
-            $assignedTo = $this->nullableInt($this->input('assigned_to'));
-            $ticketModel->assignTo($id, $assignedTo);
+            $assignédTo = $this->nullableInt($this->input('assignéd_to'));
+            $ticketModel->assignTo($id, $assignédTo);
 
-            if ($assignedTo !== null && $assignedTo !== Auth::id()) {
+            if ($assignédTo !== null && $assignédTo !== Auth::id()) {
                 (new Notification())->createForUser(
-                    $assignedTo,
-                    'ticket_assigned',
-                    'Ticket assigne',
-                    'Le ticket ' . $ticket['ticket_number'] . ' vous a ete assigne.'
+                    $assignédTo,
+                    'ticket_assignéd',
+                    'Ticket assigné',
+                    'Le ticket ' . $ticket['ticket_number'] . ' vous a ete assigné.'
                 );
             }
 
-            (new AuditService())->log('ASSIGN', 'tickets', $id, ['assigned_to' => $assignedTo]);
-            Flash::set('success', 'Assignation mise a jour.');
+            (new AuditService())->log('ASSIGN', 'tickets', $id, ['assignéd_to' => $assignédTo]);
+            Flash::set('success', 'Assignation mise à jour.');
         } catch (\Throwable $e) {
             Flash::set('error', 'Erreur d\'assignation: ' . $e->getMessage());
         }
@@ -133,14 +133,14 @@ final class TicketController extends Controller
     public function assignSelf(int $id): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
         try {
             (new Ticket())->assignTo($id, Auth::id());
-            (new AuditService())->log('ASSIGN_SELF', 'tickets', $id, ['assigned_to' => Auth::id()]);
-            Flash::set('success', 'Ticket assigne a votre utilisateur.');
+            (new AuditService())->log('ASSIGN_SELF', 'tickets', $id, ['assignéd_to' => Auth::id()]);
+            Flash::set('success', 'Ticket assigné a votre utilisateur.');
         } catch (\Throwable $e) {
             Flash::set('error', 'Erreur d\'auto-assignation: ' . $e->getMessage());
         }
@@ -151,7 +151,7 @@ final class TicketController extends Controller
     public function updateStatus(int $id): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
@@ -172,7 +172,7 @@ final class TicketController extends Controller
     public function updatePriority(int $id): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
@@ -180,9 +180,9 @@ final class TicketController extends Controller
         try {
             (new Ticket())->updateTicketPriority($id, $priority);
             (new AuditService())->log('UPDATE_PRIORITY', 'tickets', $id, ['priority' => $priority]);
-            Flash::set('success', 'Priorite du ticket mise a jour.');
+            Flash::set('success', 'Priorité du ticket mise à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur priorite ticket: ' . $e->getMessage());
+            Flash::set('error', 'Erreur priorité ticket: ' . $e->getMessage());
         }
 
         $this->redirect('/tickets#ticket-' . $id);
@@ -191,7 +191,7 @@ final class TicketController extends Controller
     public function addComment(int $id): void
     {
         if ($this->roleSlug() === 'driver') {
-            Flash::set('error', 'Action non autorisee.');
+            Flash::set('error', 'Action non autorisée.');
             $this->redirect('/driver/deliveries');
         }
 
@@ -212,7 +212,7 @@ final class TicketController extends Controller
             $ticketModel->addComment($id, $comment);
 
             $targets = array_unique(array_filter([
-                (int) ($ticket['assigned_to'] ?? 0),
+                (int) ($ticket['assignéd_to'] ?? 0),
                 (int) ($ticket['reporter_id'] ?? 0),
             ]));
 
@@ -250,7 +250,7 @@ final class TicketController extends Controller
         try {
             $ticketModel->updateTicketStatus($id, $status);
             (new AuditService())->log('UPDATE_STATUS', 'tickets', $id, ['status' => $status]);
-            Flash::set('success', 'Statut du ticket mis a jour.');
+            Flash::set('success', 'Statut du ticket mis à jour.');
         } catch (\Throwable $e) {
             Flash::set('error', 'Erreur statut ticket: ' . $e->getMessage());
         }

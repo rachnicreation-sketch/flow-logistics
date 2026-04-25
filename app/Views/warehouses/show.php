@@ -1,6 +1,6 @@
 <section class="page-header">
     <div>
-        <h2>Entrepot: <?= e($warehouse['name']) ?></h2>
+        <h2>Entrepôt: <?= e($warehouse['name']) ?></h2>
         <p>Vue detaillee de l'entrepot, des zones et des emplacements.</p>
     </div>
     <div class="action-row">
@@ -22,7 +22,7 @@
     <article class="kpi-card">
         <span class="kpi-label">Emplacements</span>
         <strong><?= (int) ($warehouse['location_count'] ?? 0) ?></strong>
-        <span class="kpi-sub">Capacite de stockage</span>
+        <span class="kpi-sub">Capacité de stockage</span>
     </article>
     <article class="kpi-card">
         <span class="kpi-label">Stock total</span>
@@ -35,7 +35,7 @@
     <div class="panel-header"><h3>Zones et emplacements</h3></div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Zone</th><th>Emplacement</th><th>Capacite</th><th>Detail</th></tr></thead>
+            <thead><tr><th>Zone</th><th>Emplacement</th><th>Capacité</th><th>Detail</th></tr></thead>
             <tbody>
             <?php if (empty($zones)): ?>
                 <tr><td colspan="4" class="empty-row">Aucune zone definie.</td></tr>

@@ -1,6 +1,6 @@
 <section class="page-header">
     <h2>Clients</h2>
-    <p>Referentiel client pour commandes et livraisons.</p>
+    <p>Référentiel client pour commandes et livraisons.</p>
 </section>
 
 <section class="split-grid">

@@ -24,14 +24,14 @@
     <article class="kpi-card success">
         <span class="kpi-label">Conformite</span>
         <strong>OK</strong>
-        <span class="kpi-sub">TraÃƒÂ§abilite disponible</span>
+        <span class="kpi-sub">Traçabilite disponible</span>
     </article>
 </section>
 
 <section class="split-grid">
     <article class="panel panel-pad">
         <h3>Exports PDF</h3>
-        <p class="muted-text">Generez les rapports officiels pour partager un etat complet de vos operations.</p>
+        <p class="muted-text">Générez les rapports officiels pour partager un etat complet de vos operations.</p>
         <div class="action-row">
             <a class="btn" href="<?= e(url('/reports/stocks')) ?>" target="_blank" rel="noopener">Rapport stocks</a>
             <a class="btn btn-outline" href="<?= e(url('/reports/orders')) ?>" target="_blank" rel="noopener">Rapport commandes</a>
@@ -43,7 +43,7 @@
         <p class="muted-text">Consultez toutes les actions utilisateurs, controles et evenements systeme.</p>
         <div class="action-row">
             <a class="btn" href="<?= e(url('/logs')) ?>">Ouvrir les logs</a>
-            <a class="btn btn-outline" href="<?= e(url('/settings')) ?>">Parametres</a>
+            <a class="btn btn-outline" href="<?= e(url('/settings')) ?>">Paramètres</a>
         </div>
     </article>
 </section>

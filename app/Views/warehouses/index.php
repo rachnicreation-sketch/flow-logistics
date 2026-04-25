@@ -1,24 +1,24 @@
 <section class="page-header">
-    <h2>Entrepots (WMS)</h2>
-    <p>Entrepots, zones et emplacements avec fiches detaillees.</p>
+    <h2>Entrepôts (WMS)</h2>
+    <p>Entrepôts, zones et emplacements avec fiches detaillees.</p>
 </section>
 
 <section class="tri-grid">
     <article class="panel panel-pad">
-        <h3>Creer entrepot</h3>
+        <h3>Créer entrepot</h3>
         <form method="post" action="<?= e(url('/warehouses')) ?>" class="grid-form">
             <?= csrf_field() ?>
             <label>Nom<input type="text" name="name" required></label>
             <label>Code<input type="text" name="code" required></label>
             <label>Adresse<textarea name="address"></textarea></label>
-            <button class="btn" type="submit">Creer</button>
+            <button class="btn" type="submit">Créer</button>
         </form>
     </article>
     <article class="panel panel-pad">
         <h3>Ajouter zone</h3>
         <form method="post" action="<?= e(url('/warehouses/zones')) ?>" class="grid-form">
             <?= csrf_field() ?>
-            <label>Entrepot
+            <label>Entrepôt
                 <select name="warehouse_id">
                     <?php foreach ($warehouses as $w): ?>
                         <option value="<?= (int) $w['id'] ?>"><?= e($w['name']) ?></option>
@@ -38,14 +38,14 @@
                     <?php foreach ($zonesByWarehouse as $warehouseId => $zones): ?>
                         <?php foreach ($zones as $zone): ?>
                             <option value="<?= (int) $zone['id'] ?>">
-                                <?= e($zone['name']) ?> (Entrepot #<?= (int) $warehouseId ?>)
+                                <?= e($zone['name']) ?> (Entrepôt #<?= (int) $warehouseId ?>)
                             </option>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
                 </select>
             </label>
             <label>Label<input type="text" name="label" required></label>
-            <label>Capacite<input type="number" step="0.01" name="capacity"></label>
+            <label>Capacité<input type="number" step="0.01" name="capacity"></label>
             <button class="btn" type="submit">Ajouter emplacement</button>
         </form>
     </article>
@@ -53,7 +53,7 @@
 
 <section class="split-grid">
     <article class="panel">
-        <div class="panel-header"><h3>Entrepots et zones</h3></div>
+        <div class="panel-header"><h3>Entrepôts et zones</h3></div>
         <div class="panel-body">
         <?php foreach ($warehouses as $w): ?>
             <div class="cluster">
@@ -71,7 +71,7 @@
         <div class="panel-header"><h3>Emplacements</h3></div>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>Entrepot</th><th>Zone</th><th>Label</th><th>Capacite</th><th>Detail</th></tr></thead>
+                <thead><tr><th>Entrepôt</th><th>Zone</th><th>Label</th><th>Capacité</th><th>Detail</th></tr></thead>
                 <tbody>
                 <?php foreach ($locations as $l): ?>
                     <tr>

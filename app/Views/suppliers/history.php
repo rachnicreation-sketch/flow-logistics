@@ -7,7 +7,7 @@
     <h3>Transactions (achats)</h3>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>RÃƒÂ©fÃƒÂ©rence</th><th>Statut</th><th>Montant</th><th>Date</th></tr></thead>
+            <thead><tr><th>Référence</th><th>Statut</th><th>Montant</th><th>Date</th></tr></thead>
             <tbody>
             <?php foreach ($history as $row): ?>
                 <tr>

@@ -14,7 +14,7 @@
         <div class="ticket-meta-grid">
             <div><strong>Produit:</strong> <?= e($stock['product_name']) ?> (<?= e($stock['sku']) ?>)</div>
             <div><strong>Code-barres:</strong> <?= e($stock['barcode'] ?? '-') ?></div>
-            <div><strong>Entrepot:</strong> <a href="<?= e(url('/warehouses/' . $stock['warehouse_id'])) ?>"><?= e($stock['warehouse_name']) ?></a></div>
+            <div><strong>Entrepôt:</strong> <a href="<?= e(url('/warehouses/' . $stock['warehouse_id'])) ?>"><?= e($stock['warehouse_name']) ?></a></div>
             <div><strong>Emplacement:</strong>
                 <?php if (!empty($stock['location_id'])): ?>
                     <a href="<?= e(url('/locations/' . $stock['location_id'])) ?>"><?= e($stock['location_label'] ?? '-') ?></a>

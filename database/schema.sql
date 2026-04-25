@@ -616,7 +616,7 @@ INSERT INTO role_permissions (role_id, permission_id)
 SELECT r.id, p.id
 FROM roles r
 JOIN permissions p ON p.slug IN (
-    'dashboard.view','deliveries.driver','api.driver'
+    'dashboard.view','deliveries.driver','api.driver','messages.manage'
 )
 WHERE r.slug = 'driver';
 

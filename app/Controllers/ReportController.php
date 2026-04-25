@@ -36,7 +36,7 @@ final class ReportController extends Controller
             $tableRows[] = [
                 'SKU' => (string) ($row['sku'] ?? '-'),
                 'Produit' => (string) ($row['product_name'] ?? '-'),
-                'Entrepot' => (string) ($row['warehouse_name'] ?? '-'),
+                'Entrepôt' => (string) ($row['warehouse_name'] ?? '-'),
                 'Emplacement' => (string) ($row['location_label'] ?? '-'),
                 'Quantite' => number_format((float) ($row['quantity'] ?? 0), 2, '.', ' '),
             ];
@@ -48,7 +48,7 @@ final class ReportController extends Controller
             [
                 ['label' => 'SKU', 'weight' => 1.1],
                 ['label' => 'Produit', 'weight' => 2.0],
-                ['label' => 'Entrepot', 'weight' => 1.4],
+                ['label' => 'Entrepôt', 'weight' => 1.4],
                 ['label' => 'Emplacement', 'weight' => 1.2],
                 ['label' => 'Quantite', 'weight' => 1.0],
             ],
@@ -105,7 +105,7 @@ final class ReportController extends Controller
                 'Commande' => (string) ($row['order_ref'] ?? '-'),
                 'Client' => (string) ($row['customer_name'] ?? '-'),
                 'Chauffeur' => (string) ($row['driver_name'] ?? '-'),
-                'Vehicule' => (string) ($row['plate_number'] ?? '-'),
+                'Véhicule' => (string) ($row['plate_number'] ?? '-'),
                 'Statut' => (string) ($row['status'] ?? '-'),
             ];
         }
@@ -117,7 +117,7 @@ final class ReportController extends Controller
                 ['label' => 'Commande', 'weight' => 1.4],
                 ['label' => 'Client', 'weight' => 2.0],
                 ['label' => 'Chauffeur', 'weight' => 1.4],
-                ['label' => 'Vehicule', 'weight' => 1.2],
+                ['label' => 'Véhicule', 'weight' => 1.2],
                 ['label' => 'Statut', 'weight' => 1.0],
             ],
             $tableRows,

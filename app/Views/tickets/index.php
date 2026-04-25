@@ -67,12 +67,12 @@ $currentUserId = (int) (Auth::id() ?? 0);
                     <option value="orders">Commandes</option>
                     <option value="deliveries">Livraisons</option>
                     <option value="reports">Rapports</option>
-                    <option value="settings">Parametres</option>
+                    <option value="settings">Paramètres</option>
                     <option value="other">Autre</option>
                 </select>
             </label>
 
-            <label>Priorite
+            <label>Priorité
                 <select name="priority">
                     <option value="low">Basse</option>
                     <option value="medium" selected>Moyenne</option>
@@ -81,16 +81,16 @@ $currentUserId = (int) (Auth::id() ?? 0);
                 </select>
             </label>
 
-            <label>Assigner a
-                <select name="assigned_to">
-                    <option value="">Non assigne</option>
+            <label>Assignér a
+                <select name="assignéd_to">
+                    <option value="">Non assigné</option>
                     <?php foreach ($users as $user): ?>
                         <option value="<?= (int) $user['id'] ?>"><?= e($user['name']) ?> (<?= e($user['role_slug']) ?>)</option>
                     <?php endforeach; ?>
                 </select>
             </label>
 
-            <label>Echeance
+            <label>Échéance
                 <input type="datetime-local" name="due_at">
             </label>
 
@@ -98,7 +98,7 @@ $currentUserId = (int) (Auth::id() ?? 0);
                 <textarea name="description" required></textarea>
             </label>
 
-            <button class="btn" type="submit">Creer ticket</button>
+            <button class="btn" type="submit">Créer ticket</button>
         </form>
     </article>
 
@@ -107,7 +107,7 @@ $currentUserId = (int) (Auth::id() ?? 0);
         <ul class="compact-list">
             <li>Utilisez un titre precis pour faciliter la priorisation.</li>
             <li>Affectez chaque ticket a un responsable clair.</li>
-            <li>Mettez le statut a jour apres chaque action.</li>
+            <li>Mettez le statut à jour apres chaque action.</li>
             <li>Documentez les actions dans les commentaires.</li>
             <li>Fermez le ticket seulement apres verification.</li>
         </ul>
@@ -126,8 +126,8 @@ $currentUserId = (int) (Auth::id() ?? 0);
                 <th>Titre</th>
                 <th>Module</th>
                 <th>Statut</th>
-                <th>Priorite</th>
-                <th>Assigne</th>
+                <th>Priorité</th>
+                <th>Assigné</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -145,24 +145,24 @@ $currentUserId = (int) (Auth::id() ?? 0);
                         <td><?= e($ticket['module_name'] ?? '-') ?></td>
                         <td><span class="badge"><?= e($ticket['status']) ?></span></td>
                         <td><span class="badge"><?= e($ticket['priority']) ?></span></td>
-                        <td><?= e($ticket['assignee_name'] ?? 'Non assigne') ?></td>
+                        <td><?= e($ticket['assignée_name'] ?? 'Non assigné') ?></td>
                         <td class="action-grid">
                             <form method="post" action="<?= e(url('/tickets/' . $ticketId . '/assign')) ?>" class="inline-form">
                                 <?= csrf_field() ?>
-                                <select name="assigned_to">
-                                    <option value="">Non assigne</option>
+                                <select name="assignéd_to">
+                                    <option value="">Non assigné</option>
                                     <?php foreach ($users as $user): ?>
-                                        <option value="<?= (int) $user['id'] ?>" <?= (int) ($ticket['assigned_to'] ?? 0) === (int) $user['id'] ? 'selected' : '' ?>>
+                                        <option value="<?= (int) $user['id'] ?>" <?= (int) ($ticket['assignéd_to'] ?? 0) === (int) $user['id'] ? 'selected' : '' ?>>
                                             <?= e($user['name']) ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button class="btn btn-outline btn-sm" type="submit">Assigner</button>
+                                <button class="btn btn-outline btn-sm" type="submit">Assignér</button>
                             </form>
 
                             <form method="post" action="<?= e(url('/tickets/' . $ticketId . '/assign-self')) ?>">
                                 <?= csrf_field() ?>
-                                <button class="btn btn-outline btn-sm" type="submit">M'assigner</button>
+                                <button class="btn btn-outline btn-sm" type="submit">M'assignér</button>
                             </form>
 
                             <form method="post" action="<?= e(url('/tickets/' . $ticketId . '/status')) ?>" class="inline-form">
@@ -184,7 +184,7 @@ $currentUserId = (int) (Auth::id() ?? 0);
                                     <option value="high" <?= $ticket['priority'] === 'high' ? 'selected' : '' ?>>high</option>
                                     <option value="urgent" <?= $ticket['priority'] === 'urgent' ? 'selected' : '' ?>>urgent</option>
                                 </select>
-                                <button class="btn btn-outline btn-sm" type="submit">Priorite</button>
+                                <button class="btn btn-outline btn-sm" type="submit">Priorité</button>
                             </form>
 
                             <?php if ($ticket['status'] !== 'closed'): ?>
@@ -226,9 +226,9 @@ $currentUserId = (int) (Auth::id() ?? 0);
 
             <div class="ticket-meta-grid">
                 <div><strong>Reporter:</strong> <?= e($ticket['reporter_name'] ?? '-') ?></div>
-                <div><strong>Assigne:</strong> <?= e($ticket['assignee_name'] ?? '-') ?></div>
-                <div><strong>Cree le:</strong> <?= e($ticket['created_at']) ?></div>
-                <div><strong>Echeance:</strong> <?= e($ticket['due_at'] ?? '-') ?></div>
+                <div><strong>Assigné:</strong> <?= e($ticket['assignée_name'] ?? '-') ?></div>
+                <div><strong>Créé le:</strong> <?= e($ticket['created_at']) ?></div>
+                <div><strong>Échéance:</strong> <?= e($ticket['due_at'] ?? '-') ?></div>
             </div>
 
             <h4>Commentaires</h4>
@@ -254,7 +254,7 @@ $currentUserId = (int) (Auth::id() ?? 0);
                 <button class="btn btn-outline" type="submit">Ajouter commentaire</button>
             </form>
 
-            <?php if ((int) ($ticket['assigned_to'] ?? 0) !== $currentUserId): ?>
+            <?php if ((int) ($ticket['assignéd_to'] ?? 0) !== $currentUserId): ?>
                 <form method="post" action="<?= e(url('/tickets/' . $ticketId . '/assign-self')) ?>">
                     <?= csrf_field() ?>
                     <button class="btn btn-outline" type="submit">Prendre ce ticket</button>

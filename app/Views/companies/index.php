@@ -11,7 +11,7 @@
             <label>Nom<input type="text" name="name" required></label>
             <label>Code<input type="text" name="code" required></label>
             <label>Email<input type="email" name="email"></label>
-            <label>TÃƒÂ©lÃƒÂ©phone<input type="text" name="phone"></label>
+            <label>Téléphone<input type="text" name="phone"></label>
             <label>Adresse<textarea name="address"></textarea></label>
             <label>Statut
                 <select name="status">
@@ -19,7 +19,7 @@
                     <option value="inactive">Inactive</option>
                 </select>
             </label>
-            <button class="btn">CrÃƒÂ©er entreprise</button>
+            <button class="btn">Créer entreprise</button>
         </form>
     </article>
     <article class="panel">

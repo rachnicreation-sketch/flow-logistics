@@ -1,7 +1,7 @@
 <section class="page-header">
     <div>
         <h2>Interface chauffeur</h2>
-        <p>Mise a jour des livraisons affectees en temps reel.</p>
+        <p>Mise à jour des livraisons affectées en temps réel.</p>
     </div>
     <div class="action-row">
         <a class="btn btn-outline btn-sm" href="<?= e(url('/messages')) ?>">Messages</a>
@@ -15,7 +15,7 @@
     </div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Commande</th><th>Client</th><th>Adresse</th><th>Statut</th><th>Mettre a jour</th></tr></thead>
+            <thead><tr><th>Commande</th><th>Client</th><th>Adresse</th><th>Statut</th><th>Mettre à jour</th></tr></thead>
             <tbody>
             <?php foreach ($deliveries as $d): ?>
                 <tr>

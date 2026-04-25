@@ -54,9 +54,9 @@ final class ProductController extends Controller
                 'description' => $this->input('description'),
             ]);
             (new AuditService())->log('CREATE', 'categories', $id, ['name' => $name]);
-            Flash::set('success', 'Categorie creee.');
+            Flash::set('success', 'Categorie créée.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer la categorie: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer la categorie: ' . $e->getMessage());
         }
 
         $this->redirect('/products');
@@ -84,9 +84,9 @@ final class ProductController extends Controller
                 'status' => $this->input('status', 'active'),
             ]);
             (new AuditService())->log('CREATE', 'products', $id, ['sku' => $sku]);
-            Flash::set('success', 'Produit cree (code-barres genere si vide).');
+            Flash::set('success', 'Produit créé (code-barres genere si vide).');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer le produit: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer le produit: ' . $e->getMessage());
         }
 
         $this->redirect('/products');
@@ -121,9 +121,9 @@ final class ProductController extends Controller
                 'status' => $this->input('status', 'active'),
             ]);
             (new AuditService())->log('UPDATE', 'products', $id, ['sku' => $sku]);
-            Flash::set('success', 'Produit mis a jour.');
+            Flash::set('success', 'Produit mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour produit: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour produit: ' . $e->getMessage());
         }
 
         $this->redirect('/products/' . $id);

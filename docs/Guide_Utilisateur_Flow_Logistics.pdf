@@ -1,0 +1,92 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [5 0 R 7 0 R] /Count 2 >> endobj
+3 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >> endobj
+4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >> endobj
+5 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >> endobj
+6 0 obj << /Length 4477 >> stream
+q
+BT /F2 18.00 Tf 42.00 800.00 Td (Guide Utilisateur Flow Logistics) Tj ET
+BT /F1 10.50 Tf 42.00 772.70 Td (Version gener\351e le 25/04/2026 06:09. Ce document explique l utilisation du logiciel profil par profil, avec) Tj ET
+BT /F1 10.50 Tf 42.00 757.48 Td (les ecrans a utiliser et les operations quotidiennes recommandees.) Tj ET
+BT /F2 14.00 Tf 42.00 734.25 Td (1. Acces Et Connexion) Tj ET
+BT /F1 10.50 Tf 52.00 712.35 Td (- Ouvrir l application dans le navigateur puis se connecter avec votre compte utilisateur.) Tj ET
+BT /F1 10.50 Tf 52.00 697.12 Td (- Chaque utilisateur voit uniquement les menus autoris\351s par son role.) Tj ET
+BT /F1 10.50 Tf 52.00 681.90 Td (- En cas d erreur 403, demander au DG ou au DM d ajuster les droits dans Utilisateurs.) Tj ET
+BT /F2 14.00 Tf 42.00 660.67 Td (2. Workflow Global Recommande) Tj ET
+BT /F1 10.50 Tf 52.00 638.77 Td (- Achats: creer un bon de commande fournisseur.) Tj ET
+BT /F1 10.50 Tf 52.00 623.55 Td (- Reception: receptionner l achat pour alimenter le stock.) Tj ET
+BT /F1 10.50 Tf 52.00 608.32 Td (- Vente: creer puis valider la commande client.) Tj ET
+BT /F1 10.50 Tf 52.00 593.10 Td (- Preparation: preparer la commande pour decrementation de stock.) Tj ET
+BT /F1 10.50 Tf 52.00 577.87 Td (- Livraison: planifier puis suivre la livraison jusqu au statut delivered.) Tj ET
+BT /F1 10.50 Tf 52.00 562.65 Td (- Pilotage: consulter rapports, notifications, messages et logs.) Tj ET
+BT /F2 14.00 Tf 42.00 539.42 Td (3. Utilisation Par Profil) Tj ET
+BT /F2 11.50 Tf 42.00 517.52 Td (3.1 Directeur General \(dg\)) Tj ET
+BT /F1 10.50 Tf 42.00 499.00 Td (Objectif: pilotage complet de l entreprise et supervision des equipes.) Tj ET
+BT /F1 10.50 Tf 52.00 483.77 Td (- Menus principaux: Dashboard, Utilisateurs, Fournisseurs, Produits, Entrepots, Stocks, Achats, Clients,) Tj ET
+BT /F1 10.50 Tf 52.00 468.55 Td (Commandes, Livraisons, Messages, Notifications, Ticketing, Rapports, Logs, Parametres.) Tj ET
+BT /F1 10.50 Tf 52.00 453.32 Td (- Actions quotidiennes: valider les commandes, suivre les KPI, surveiller les retards de livraison,) Tj ET
+BT /F1 10.50 Tf 52.00 438.10 Td (consulter les tickets critiques.) Tj ET
+BT /F1 10.50 Tf 52.00 422.87 Td (- Action de gouvernance: creer/mettre a jour les comptes utilisateurs et verifier la repartition des) Tj ET
+BT /F1 10.50 Tf 52.00 407.65 Td (roles.) Tj ET
+BT /F2 11.50 Tf 42.00 387.42 Td (3.2 Directeur Manager / Admin Entreprise \(dm ou company_admin\)) Tj ET
+BT /F1 10.50 Tf 42.00 368.90 Td (Objectif: gestion operationnelle transverse avec droits proches du DG.) Tj ET
+BT /F1 10.50 Tf 52.00 353.67 Td (- Menus principaux: identiques au DG.) Tj ET
+BT /F1 10.50 Tf 52.00 338.45 Td (- Actions quotidiennes: organiser les equipes, gerer les donnees de base \(fournisseurs, produits,) Tj ET
+BT /F1 10.50 Tf 52.00 323.22 Td (entrepots\), piloter les flux achats-commandes-livraisons.) Tj ET
+BT /F1 10.50 Tf 52.00 308.00 Td (- Parametrage: mettre a jour les informations de societe \(Parametres\) et les utilisateurs.) Tj ET
+BT /F2 11.50 Tf 42.00 287.77 Td (3.3 Responsable Logistique \(logistics_manager\)) Tj ET
+BT /F1 10.50 Tf 42.00 269.25 Td (Objectif: execution et performance de la chaine logistique.) Tj ET
+BT /F1 10.50 Tf 52.00 254.02 Td (- Menus principaux: Dashboard, Fournisseurs, Produits, Entrepots, Stocks, Achats, Clients, Commandes,) Tj ET
+BT /F1 10.50 Tf 52.00 238.80 Td (Livraisons, Messages, Notifications, Ticketing, Rapports, Logs.) Tj ET
+BT /F1 10.50 Tf 52.00 223.57 Td (- Cycle type: creer achat > receptionner > verifier stock > preparer commandes > planifier livraison.) Tj ET
+BT /F1 10.50 Tf 52.00 208.35 Td (- Bonnes pratiques: maintenir les SKU propres, verifier les seuils mini, traiter les alertes stock faible) Tj ET
+BT /F1 10.50 Tf 52.00 193.12 Td (chaque jour.) Tj ET
+BT /F2 11.50 Tf 42.00 172.90 Td (3.4 Magasinier \(storekeeper\)) Tj ET
+BT /F1 10.50 Tf 42.00 154.37 Td (Objectif: fiabilite du stock et execution physique entrepot.) Tj ET
+BT /F1 10.50 Tf 52.00 139.15 Td (- Menus principaux: Dashboard, Stocks, Messages, Notifications.) Tj ET
+BT /F1 10.50 Tf 52.00 123.92 Td (- Actions autorisees importantes: reception d achat, preparation de commande, mouvements de stock.) Tj ET
+BT /F1 10.50 Tf 52.00 108.70 Td (- Routine conseillee: controle des receptions, verification des ecarts, confirmation des preparations) Tj ET
+BT /F1 10.50 Tf 52.00 93.47 Td (avant expedition.) Tj ET
+BT /F2 11.50 Tf 42.00 73.25 Td (3.5 Chauffeur \(driver\)) Tj ET
+Q
+endstream endobj
+7 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >> endobj
+8 0 obj << /Length 2079 >> stream
+q
+BT /F1 10.50 Tf 42.00 800.00 Td (Objectif: suivre et mettre a jour les livraisons en temps reel.) Tj ET
+BT /F1 10.50 Tf 52.00 784.77 Td (- Menus principaux: Dashboard, Espace chauffeur, Messages, Notifications.) Tj ET
+BT /F1 10.50 Tf 52.00 769.55 Td (- Depuis Espace chauffeur: ouvrir la livraison, passer le statut de pending a in_transit puis delivered) Tj ET
+BT /F1 10.50 Tf 52.00 754.32 Td (\(ou failed\), ajouter notes et position GPS si disponible.) Tj ET
+BT /F1 10.50 Tf 52.00 739.10 Td (- API mobile disponible: POST /api/login, GET /api/driver/deliveries, POST) Tj ET
+BT /F1 10.50 Tf 52.00 723.87 Td (/api/driver/deliveries/{id}/status avec Bearer token.) Tj ET
+BT /F2 14.00 Tf 42.00 702.65 Td (4. Procedures Critiques) Tj ET
+BT /F1 10.50 Tf 52.00 680.75 Td (- Validation commande: Commandes > choisir une commande > action Valider.) Tj ET
+BT /F1 10.50 Tf 52.00 665.52 Td (- Preparation commande: Commandes > action Preparer > choisir l entrepot > confirmer la methode FIFO/LIFO.) Tj ET
+BT /F1 10.50 Tf 52.00 650.30 Td (- Planification livraison: Livraisons > creer une livraison > associer commande + vehicule + chauffeur +) Tj ET
+BT /F1 10.50 Tf 52.00 635.07 Td (date.) Tj ET
+BT /F1 10.50 Tf 52.00 619.85 Td (- Facture: Commandes > ouvrir commande > Imprimer facture.) Tj ET
+BT /F1 10.50 Tf 52.00 604.62 Td (- Audit: Logs pour tracer les actions sensibles \(creation, suppression, changement de statut\).) Tj ET
+BT /F2 14.00 Tf 42.00 583.40 Td (5. Comptes De Demo Et Securite) Tj ET
+BT /F1 10.50 Tf 52.00 561.50 Td (- Comptes seed presents dans le schema: superadmin@flow-logistics.com, admin@flow-logistics.com,) Tj ET
+BT /F1 10.50 Tf 52.00 546.27 Td (dg@flow-logistics.com \(mot de passe initial: password\).) Tj ET
+BT /F1 10.50 Tf 52.00 531.05 Td (- Les autres profils \(DM, Responsable Logistique, Magasinier, Chauffeur\) peuvent etre crees depuis le) Tj ET
+BT /F1 10.50 Tf 52.00 515.82 Td (module Utilisateurs.) Tj ET
+BT /F1 10.50 Tf 52.00 500.60 Td (- Apres installation, changer tous les mots de passe par defaut et desactiver les comptes inutilises.) Tj ET
+Q
+endstream endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000218 00000 n 
+0000000320 00000 n 
+0000000456 00000 n 
+0000004985 00000 n 
+0000005121 00000 n 
+trailer << /Size 9 /Root 1 0 R >>
+startxref
+7252
+%%EOF

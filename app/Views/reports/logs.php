@@ -1,13 +1,13 @@
 <section class="page-header">
     <h2>Logs utilisateurs</h2>
-    <p>TraÃƒÂ§abilitÃƒÂ© des opÃƒÂ©rations (audit trail).</p>
+    <p>Traçabilité des opérations (audit trail).</p>
 </section>
 
 <section class="panel">
     <h3>Historique des actions</h3>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Date</th><th>Utilisateur</th><th>Action</th><th>Module</th><th>Entity</th><th>IP</th><th>MÃƒÂ©tadonnÃƒÂ©es</th></tr></thead>
+            <thead><tr><th>Date</th><th>Utilisateur</th><th>Action</th><th>Module</th><th>Entity</th><th>IP</th><th>Métadonnées</th></tr></thead>
             <tbody>
             <?php foreach ($logs as $log): ?>
                 <tr>

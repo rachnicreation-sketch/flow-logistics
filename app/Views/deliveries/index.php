@@ -1,7 +1,7 @@
 <section class="page-header">
     <div>
         <h2>Transport et livraisons (TMS)</h2>
-        <p>Planification, affectation chauffeurs/vehicules et suivi de statut.</p>
+        <p>Planification, affectation chauffeurs/véhicules et suivi de statut.</p>
     </div>
     <div class="action-row">
         <a class="btn btn-outline" href="<?= e(url('/orders')) ?>">Voir les commandes</a>
@@ -10,19 +10,19 @@
 
 <section class="tri-grid">
     <article class="panel panel-pad">
-        <h3>Nouveau vehicule</h3>
+        <h3>Nouveau véhicule</h3>
         <form method="post" action="<?= e(url('/deliveries/vehicles')) ?>" class="grid-form">
             <?= csrf_field() ?>
             <label>Matricule<input type="text" name="plate_number" required></label>
             <label>Modele<input type="text" name="model"></label>
-            <label>Capacite<input type="number" step="0.01" name="capacity"></label>
+            <label>Capacité<input type="number" step="0.01" name="capacity"></label>
             <label>Statut
                 <select name="status">
                     <option value="available">Disponible</option>
                     <option value="maintenance">Maintenance</option>
                 </select>
             </label>
-            <button class="btn" type="submit">Creer vehicule</button>
+            <button class="btn" type="submit">Créer véhicule</button>
         </form>
     </article>
 
@@ -39,7 +39,7 @@
                     <?php endforeach; ?>
                 </select>
             </label>
-            <label>Vehicule
+            <label>Véhicule
                 <select name="vehicle_id">
                     <option value="">-</option>
                     <?php foreach ($vehicles as $v): ?>
@@ -77,7 +77,7 @@
     </div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Commande</th><th>Client</th><th>Chauffeur</th><th>Vehicule</th><th>Statut</th><th>Planifie</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Commande</th><th>Client</th><th>Chauffeur</th><th>Véhicule</th><th>Statut</th><th>Planifie</th><th>Actions</th></tr></thead>
             <tbody>
             <?php foreach ($deliveries as $d): ?>
                 <tr>
@@ -97,7 +97,7 @@
                                 <option value="failed" <?= ($d['status'] === 'failed') ? 'selected' : '' ?>>Echec</option>
                             </select>
                             <input type="text" name="driver_notes" placeholder="Note interne">
-                            <button class="btn btn-outline" type="submit">Mettre a jour</button>
+                            <button class="btn btn-outline" type="submit">Mettre à jour</button>
                         </form>
                     </td>
                 </tr>

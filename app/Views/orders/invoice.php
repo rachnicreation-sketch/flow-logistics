@@ -144,12 +144,12 @@
 </head>
 <body>
 
-<button class="print-btn" onclick="window.print()">Ã°Å¸â€“Â¨Ã¯Â¸Â Imprimer la Facture</button>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer la Facture</button>
 
 <div class="invoice-box">
     <div class="header">
         <div class="company-info">
-            <h1>Ã¢Å¡Â¡ Flow Logistics</h1>
+            <h1>⚡ Flow Logistics</h1>
             <p>123 Avenue de la Logistique</p>
             <p>69000 Lyon, France</p>
             <p>TVA: FR88 123456789</p>
@@ -157,8 +157,8 @@
         <div class="invoice-details">
             <h2>FACTURE</h2>
             <table>
-                <tr><th>NÃ‚Â° Facture:</th><td><?= e($order['invoice_number'] ?? '-') ?></td></tr>
-                <tr><th>RÃƒÂ©f Commande:</th><td><?= e($order['reference']) ?></td></tr>
+                <tr><th>N° Facture:</th><td><?= e($order['invoice_number'] ?? '-') ?></td></tr>
+                <tr><th>Réf Commande:</th><td><?= e($order['reference']) ?></td></tr>
                 <tr><th>Date:</th><td><?= e(date('d/m/Y', strtotime($order['created_at']))) ?></td></tr>
             </table>
         </div>
@@ -166,13 +166,13 @@
 
     <div class="addresses">
         <div class="address-block">
-            <h3>FacturÃƒÂ© ÃƒÂ </h3>
+            <h3>Facturé à</h3>
             <p><?= e($customer['name'] ?? '-') ?></p>
             <p><?= e($customer['address'] ?? '-') ?></p>
             <p><?= e($customer['email'] ?? '') ?></p>
         </div>
         <div class="address-block">
-            <h3>LivrÃƒÂ© ÃƒÂ </h3>
+            <h3>Livré à</h3>
             <p><?= e($customer['name'] ?? '-') ?></p>
             <p><?= e($order['delivery_address'] ?? ($customer['address'] ?? '-')) ?></p>
         </div>
@@ -181,9 +181,9 @@
     <table class="items">
         <thead>
             <tr>
-                <th>RÃƒÂ©f / SKU</th>
+                <th>Réf / SKU</th>
                 <th>Description</th>
-                <th class="center">QtÃƒÂ©</th>
+                <th class="center">Qté</th>
                 <th class="right">Prix U. (HT)</th>
                 <th class="right">Total (HT)</th>
             </tr>
@@ -194,8 +194,8 @@
                 <td><code><?= e($item['sku']) ?></code></td>
                 <td><?= e($item['product_name']) ?></td>
                 <td class="center"><?= e((string)(float) $item['quantity']) ?></td>
-                <td class="right"><?= number_format((float) $item['unit_price'], 2, ',', ' ') ?> Ã¢â€šÂ¬</td>
-                <td class="right"><?= number_format((float) $item['total_price'], 2, ',', ' ') ?> Ã¢â€šÂ¬</td>
+                <td class="right"><?= number_format((float) $item['unit_price'], 2, ',', ' ') ?> €</td>
+                <td class="right"><?= number_format((float) $item['total_price'], 2, ',', ' ') ?> €</td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -205,22 +205,22 @@
         <table>
             <tr>
                 <th>Total HT:</th>
-                <td><?= number_format((float) $order['total_amount'], 2, ',', ' ') ?> Ã¢â€šÂ¬</td>
+                <td><?= number_format((float) $order['total_amount'], 2, ',', ' ') ?> €</td>
             </tr>
             <tr>
-                <th>TVA (0% - ExonÃƒÂ©rÃƒÂ©):</th>
-                <td>0,00 Ã¢â€šÂ¬</td>
+                <th>TVA (0% - Exonéré):</th>
+                <td>0,00 €</td>
             </tr>
             <tr class="grand-total">
                 <th>Total TTC:</th>
-                <td><?= number_format((float) $order['total_amount'], 2, ',', ' ') ?> Ã¢â€šÂ¬</td>
+                <td><?= number_format((float) $order['total_amount'], 2, ',', ' ') ?> €</td>
             </tr>
         </table>
     </div>
 
     <div class="footer">
-        <p>Merci pour votre confiance. Facture payable ÃƒÂ  rÃƒÂ©ception.</p>
-        <p>Flow Logistics SAS - Capital de 50 000Ã¢â€šÂ¬ - SIRET: 123 456 789 00012</p>
+        <p>Merci pour votre confiance. Facture payable à réception.</p>
+        <p>Flow Logistics SAS - Capital de 50 000€ - SIRET: 123 456 789 00012</p>
     </div>
 </div>
 

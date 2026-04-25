@@ -40,7 +40,7 @@ final class Middleware
                 $user = Auth::user();
                 if (!$user || !Auth::can('deliveries.driver')) {
                     http_response_code(403);
-                    exit('AccÃƒÂ¨s interdit.');
+                    exit('Accès interdit.');
                 }
             }
         }

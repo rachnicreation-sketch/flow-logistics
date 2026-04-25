@@ -39,7 +39,7 @@ final class DeliveryController extends Controller
     {
         $plate = strtoupper(trim((string) $this->input('plate_number')));
         if ($plate === '') {
-            Flash::set('error', 'Matricule vehicule obligatoire.');
+            Flash::set('error', 'Matricule véhicule obligatoire.');
             $this->redirect('/deliveries');
         }
 
@@ -51,9 +51,9 @@ final class DeliveryController extends Controller
                 'status' => $this->input('status', 'available'),
             ]);
             (new AuditService())->log('CREATE', 'vehicles', $id, ['plate' => $plate]);
-            Flash::set('success', 'Vehicule cree.');
+            Flash::set('success', 'Véhicule créé.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Impossible de creer le vehicule: ' . $e->getMessage());
+            Flash::set('error', 'Impossible de créer le véhicule: ' . $e->getMessage());
         }
 
         $this->redirect('/deliveries');
@@ -88,13 +88,13 @@ final class DeliveryController extends Controller
                 (new Notification())->createForUser(
                     $driverId,
                     'delivery',
-                    'Nouvelle livraison assignee',
-                    'Une livraison vous a ete assignee. Consultez votre espace chauffeur.'
+                    'Nouvelle livraison assignée',
+                    'Une livraison vous a ete assignée. Consultez votre espace chauffeur.'
                 );
             }
 
             (new AuditService())->log('CREATE', 'deliveries', $id, ['order_id' => $orderId]);
-            Flash::set('success', 'Livraison planifiee.');
+            Flash::set('success', 'Livraison planifiée.');
         } catch (\Throwable $e) {
             Flash::set('error', 'Erreur de planification: ' . $e->getMessage());
         }
@@ -116,9 +116,9 @@ final class DeliveryController extends Controller
             );
             $this->syncOrderStatusFromDelivery($id, $status);
             (new AuditService())->log('UPDATE_STATUS', 'deliveries', $id, ['status' => $status]);
-            Flash::set('success', 'Statut livraison mis a jour.');
+            Flash::set('success', 'Statut livraison mis à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour statut: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour statut: ' . $e->getMessage());
         }
 
         $this->redirect('/deliveries');
@@ -147,9 +147,9 @@ final class DeliveryController extends Controller
             );
             $this->syncOrderStatusFromDelivery($id, $status);
             (new AuditService())->log('DRIVER_STATUS', 'deliveries', $id, ['status' => $status]);
-            Flash::set('success', 'Livraison mise a jour.');
+            Flash::set('success', 'Livraison mise à jour.');
         } catch (\Throwable $e) {
-            Flash::set('error', 'Erreur mise a jour livraison: ' . $e->getMessage());
+            Flash::set('error', 'Erreur mise à jour livraison: ' . $e->getMessage());
         }
 
         $this->redirect('/driver/deliveries');
