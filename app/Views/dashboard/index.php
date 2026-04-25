@@ -89,7 +89,7 @@
     <article class="panel">
         <div class="panel-header">
             <h3>Alertes stock faible</h3>
-            <a href="<?= e(url('/purchases')) ?>" class="btn btn-sm">Generer un achat</a>
+            <a href="<?= e(url('/purchases')) ?>" class="btn btn-sm btn-blue">Generer un achat</a>
         </div>
         <div class="table-wrap">
             <table>
@@ -122,7 +122,7 @@
     <article class="panel">
         <div class="panel-header">
             <h3>Notifications recentes</h3>
-            <a href="<?= e(url('/notifications')) ?>" class="btn btn-outline btn-sm">Tout voir</a>
+            <a href="<?= e(url('/notifications')) ?>" class="btn btn-yellow btn-sm">Tout voir</a>
         </div>
         <div class="table-wrap">
             <table>

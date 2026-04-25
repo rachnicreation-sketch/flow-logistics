@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
   document.querySelectorAll(".menu a").forEach((a) => {
     const href = a.getAttribute("href");
@@ -13,6 +13,18 @@
       // ignore malformed links
     }
   });
+
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const appShell = document.querySelector(".app-shell");
+  if (sidebarToggle && appShell) {
+    sidebarToggle.addEventListener("click", () => {
+      if (window.innerWidth > 1024) {
+        appShell.classList.toggle("sidebar-collapsed");
+      } else {
+        appShell.classList.toggle("sidebar-open");
+      }
+    });
+  }
 
   const ensureRemoveButtons = (rows) => {
     if (!rows) return;

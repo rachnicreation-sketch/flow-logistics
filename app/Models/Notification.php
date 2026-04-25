@@ -14,7 +14,7 @@ final class Notification extends Model
     public function createForUser(?int $userId, string $type, string $title, string $message): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'user_id' => $userId,
             'type' => $type,
             'title' => $title,

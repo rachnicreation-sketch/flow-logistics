@@ -17,7 +17,7 @@ final class Order extends Model
         $this->db->beginTransaction();
         try {
             $orderId = $this->insert([
-                'company_id' => $this->currentCompanyId(),
+                'company_id' => $this->resolveCompanyId(),
                 'customer_id' => $header['customer_id'],
                 'reference' => $header['reference'],
                 'status' => $header['status'] ?? 'pending',
@@ -34,7 +34,7 @@ final class Order extends Model
             );
             foreach ($items as $item) {
                 $stmt->execute([
-                    'company_id' => $this->currentCompanyId(),
+                    'company_id' => $this->resolveCompanyId(),
                     'order_id' => $orderId,
                     'product_id' => $item['product_id'],
                     'quantity' => $item['quantity'],

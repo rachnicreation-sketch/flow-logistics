@@ -17,7 +17,7 @@ final class Purchase extends Model
         $this->db->beginTransaction();
         try {
             $id = $this->insert([
-                'company_id' => $this->currentCompanyId(),
+                'company_id' => $this->resolveCompanyId(),
                 'supplier_id' => $header['supplier_id'],
                 'reference' => $header['reference'],
                 'status' => $header['status'] ?? 'ordered',
@@ -33,7 +33,7 @@ final class Purchase extends Model
             );
             foreach ($items as $item) {
                 $stmt->execute([
-                    'company_id' => $this->currentCompanyId(),
+                    'company_id' => $this->resolveCompanyId(),
                     'purchase_id' => $id,
                     'product_id' => $item['product_id'],
                     'quantity' => $item['quantity'],

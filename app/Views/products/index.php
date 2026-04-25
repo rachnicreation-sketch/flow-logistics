@@ -10,7 +10,7 @@
             <?= csrf_field() ?>
             <label>Nom<input type="text" name="name" required></label>
             <label>Description<textarea name="description"></textarea></label>
-            <button class="btn" type="submit">Créer categorie</button>
+            <button class="btn btn-blue" type="submit">Créer categorie</button>
         </form>
     </article>
 
@@ -42,7 +42,7 @@
             <label>Prix achat<input type="number" step="0.01" name="purchase_price"></label>
             <label>Prix vente<input type="number" step="0.01" name="sale_price"></label>
             <label>Stock minimum<input type="number" step="0.01" name="min_stock"></label>
-            <button class="btn" type="submit">Créer produit</button>
+            <button class="btn btn-yellow" type="submit">Créer produit</button>
         </form>
     </article>
 
@@ -107,7 +107,7 @@
                     <td><?= number_format((float) $p['purchase_price'], 2, ',', ' ') ?></td>
                     <td><?= number_format((float) $p['sale_price'], 2, ',', ' ') ?></td>
                     <td><?= e((string) $p['min_stock']) ?></td>
-                    <td><a class="btn btn-outline btn-sm" href="<?= e(url('/products/' . $p['id'])) ?>">Detail / Modifier</a></td>
+                    <td><a class="btn btn-blue btn-sm" href="<?= e(url('/products/' . $p['id'])) ?>">Detail / Modifier</a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

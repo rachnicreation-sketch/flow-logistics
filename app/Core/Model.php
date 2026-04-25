@@ -118,5 +118,23 @@ abstract class Model
         $cache[$this->table] = (bool) $stmt->fetch();
         return $cache[$this->table];
     }
+
+    protected function resolveCompanyId(?int $explicit = null): int
+    {
+        if ($explicit !== null && $explicit > 0) {
+            return $explicit;
+        }
+
+        if ($this->currentCompanyId() !== null) {
+            return (int) $this->currentCompanyId();
+        }
+
+        $fallback = (int) $this->db->query('SELECT id FROM companies ORDER BY id ASC LIMIT 1')->fetchColumn();
+        if ($fallback <= 0) {
+            throw new \RuntimeException('Aucune entreprise disponible.');
+        }
+
+        return $fallback;
+    }
 }
 

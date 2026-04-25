@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="<?= e(asset('css/app.css')) ?>">
 </head>
 <body class="auth-body">
-<div class="auth-wrap">
-    <?php if (!empty($flash['error'])): ?>
-        <?php foreach ($flash['error'] as $message): ?>
-            <div class="alert alert-danger"><?= e($message) ?></div>
-        <?php endforeach; ?>
-    <?php endif; ?>
-    <?= $content ?>
+<div class="auth-scene">
+    <div class="auth-centered">
+        <?php if (!empty($flash['error'])): ?>
+            <?php foreach ($flash['error'] as $message): ?>
+                <div class="alert alert-danger"><?= e($message) ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        
+        <?= $content ?>
+    </div>
 </div>
 </body>
 </html>
-

@@ -195,23 +195,7 @@ final class Ticket extends Model
         ]);
     }
 
-    private function resolveCompanyId(mixed $explicit): int
-    {
-        if (is_numeric($explicit) && (int) $explicit > 0) {
-            return (int) $explicit;
-        }
 
-        if ($this->currentCompanyId() !== null) {
-            return (int) $this->currentCompanyId();
-        }
-
-        $fallback = (int) $this->db->query('SELECT id FROM companies ORDER BY id ASC LIMIT 1')->fetchColumn();
-        if ($fallback <= 0) {
-            throw new RuntimeException('Aucune entreprise disponible pour creer un ticket.');
-        }
-
-        return $fallback;
-    }
 
     private function ensureSchema(): void
     {

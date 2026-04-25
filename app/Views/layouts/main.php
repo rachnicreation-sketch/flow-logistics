@@ -173,6 +173,11 @@ if (!function_exists('layout_is_active')) {
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-left">
+                <button id="sidebarToggle" class="hamburger-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <strong><?= e($user['name'] ?? 'Utilisateur') ?></strong>
                 <span><?= e($user['role_slug'] ?? '') ?></span>
             </div>

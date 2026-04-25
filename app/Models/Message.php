@@ -125,19 +125,7 @@ final class Message extends Model
         return $stmt->execute();
     }
 
-    private function resolveCompanyId(): int
-    {
-        if ($this->currentCompanyId() !== null) {
-            return (int) $this->currentCompanyId();
-        }
 
-        $fallback = (int) $this->db->query('SELECT id FROM companies ORDER BY id ASC LIMIT 1')->fetchColumn();
-        if ($fallback <= 0) {
-            throw new RuntimeException('Aucune entreprise disponible.');
-        }
-
-        return $fallback;
-    }
 
     private function ensureSchema(): void
     {
