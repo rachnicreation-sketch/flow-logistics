@@ -19,5 +19,15 @@ final class Category extends Model
             'created_at' => date('Y-m-d H:i:s'),
         ]);
     }
+
+    public function updateCategory(int $id, array $data): bool
+    {
+        return $this->updateById($id, $data);
+    }
+
+    public function deleteCategory(int $id): bool
+    {
+        return $this->deleteById($id);
+    }
 }
 

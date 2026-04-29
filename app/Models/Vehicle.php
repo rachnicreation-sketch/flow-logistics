@@ -21,5 +21,15 @@ final class Vehicle extends Model
             'created_at' => date('Y-m-d H:i:s'),
         ]);
     }
+
+    public function updateVehicle(int $id, array $data): bool
+    {
+        return $this->updateById($id, $data);
+    }
+
+    public function deleteVehicle(int $id): bool
+    {
+        return $this->deleteById($id);
+    }
 }
 

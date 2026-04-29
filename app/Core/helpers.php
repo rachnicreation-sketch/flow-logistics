@@ -110,3 +110,10 @@ if (!function_exists('format_currency')) {
         return number_format((float) $amount, 0, ',', ' ') . ' FCFA';
     }
 }
+
+if (!function_exists('__')) {
+    function __(string $key, array $replace = []): string
+    {
+        return \App\Core\Lang::get($key, $replace);
+    }
+}

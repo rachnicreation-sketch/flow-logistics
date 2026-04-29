@@ -33,9 +33,10 @@
         <h3>Exports PDF</h3>
         <p class="muted-text">Générez les rapports officiels pour partager un etat complet de vos operations.</p>
         <div class="action-row">
-            <a class="btn" href="<?= e(url('/reports/stocks')) ?>" target="_blank" rel="noopener">Rapport stocks</a>
-            <a class="btn btn-outline" href="<?= e(url('/reports/orders')) ?>" target="_blank" rel="noopener">Rapport commandes</a>
-            <a class="btn btn-outline" href="<?= e(url('/reports/deliveries')) ?>" target="_blank" rel="noopener">Rapport livraisons</a>
+            <a class="btn" href="<?= e(url('/reports/stocks')) ?>" target="_blank" rel="noopener">Rapport stocks (PDF)</a>
+            <a class="btn btn-outline" href="<?= e(url('/reports/stocks/csv')) ?>">Export stocks (CSV)</a>
+            <a class="btn btn-outline" href="<?= e(url('/reports/orders')) ?>" target="_blank" rel="noopener">Rapport commandes (PDF)</a>
+            <a class="btn btn-outline" href="<?= e(url('/reports/deliveries')) ?>" target="_blank" rel="noopener">Rapport livraisons (PDF)</a>
         </div>
     </article>
     <article class="panel panel-pad">

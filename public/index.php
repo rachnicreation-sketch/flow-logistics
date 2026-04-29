@@ -96,18 +96,43 @@ $router->get('/customers/{id}', [CustomerController::class, 'show'], ['auth', 'p
 $router->post('/customers/{id}/update', [CustomerController::class, 'update'], ['auth', 'permission:orders.manage', 'csrf']);
 $router->post('/customers/{id}/delete', [CustomerController::class, 'delete'], ['auth', 'permission:orders.manage', 'csrf']);
 
+$router->get('/deliveries/planning', [DeliveryController::class, 'planning'], ['auth', 'permission:deliveries.manage']);
 $router->get('/deliveries', [DeliveryController::class, 'index'], ['auth', 'permission:deliveries.manage']);
-$router->post('/deliveries/vehicles', [DeliveryController::class, 'storeVehicle'], ['auth', 'permission:deliveries.manage', 'csrf']);
 $router->post('/deliveries', [DeliveryController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
 $router->post('/deliveries/{id}/status', [DeliveryController::class, 'updateStatus'], ['auth', 'permission:deliveries.manage', 'csrf']);
 $router->get('/driver/deliveries', [DeliveryController::class, 'driverPanel'], ['auth', 'permission:deliveries.driver']);
 $router->post('/driver/deliveries/{id}/status', [DeliveryController::class, 'driverUpdateStatus'], ['auth', 'permission:deliveries.driver', 'csrf']);
 
+// Véhicules
+use App\Controllers\VehicleController;
+$router->get('/vehicles', [VehicleController::class, 'index'], ['auth', 'permission:deliveries.manage']);
+$router->get('/vehicles/create', [VehicleController::class, 'create'], ['auth', 'permission:deliveries.manage']);
+$router->post('/vehicles', [VehicleController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
+$router->get('/vehicles/edit/{id}', [VehicleController::class, 'edit'], ['auth', 'permission:deliveries.manage']);
+$router->post('/vehicles/update/{id}', [VehicleController::class, 'update'], ['auth', 'permission:deliveries.manage', 'csrf']);
+$router->post('/vehicles/delete/{id}', [VehicleController::class, 'delete'], ['auth', 'permission:deliveries.manage', 'csrf']);
+
+// Inventaires
+use App\Controllers\InventoryController;
+$router->get('/inventories', [InventoryController::class, 'index'], ['auth', 'permission:stocks.manage']);
+$router->post('/inventories', [InventoryController::class, 'store'], ['auth', 'permission:stocks.manage', 'csrf']);
+$router->get('/inventories/show/{id}', [InventoryController::class, 'show'], ['auth', 'permission:stocks.manage']);
+$router->post('/inventories/update-item', [InventoryController::class, 'updateItem'], ['auth', 'permission:stocks.manage', 'csrf']);
+$router->post('/inventories/close/{id}', [InventoryController::class, 'close'], ['auth', 'permission:stocks.manage', 'csrf']);
+
+$router->get('/reports/stocks/csv', [ReportController::class, 'exportStockCsv'], ['auth', 'permission:reports.view']);
 $router->get('/reports/stocks', [ReportController::class, 'stock'], ['auth', 'permission:reports.view']);
 $router->get('/reports/orders', [ReportController::class, 'orders'], ['auth', 'permission:reports.view']);
 $router->get('/reports/deliveries', [ReportController::class, 'deliveries'], ['auth', 'permission:reports.view']);
 $router->get('/reports', [ReportController::class, 'index'], ['auth', 'permission:reports.view']);
 $router->get('/logs', [AuditController::class, 'index'], ['auth', 'permission:reports.view']);
+
+// Catégories
+use App\Controllers\CategoryController;
+$router->get('/categories', [CategoryController::class, 'index'], ['auth', 'permission:products.manage']);
+$router->post('/categories', [CategoryController::class, 'store'], ['auth', 'permission:products.manage', 'csrf']);
+$router->post('/categories/update/{id}', [CategoryController::class, 'update'], ['auth', 'permission:products.manage', 'csrf']);
+$router->post('/categories/delete/{id}', [CategoryController::class, 'delete'], ['auth', 'permission:products.manage', 'csrf']);
 
 $router->get('/settings', [SettingController::class, 'index'], ['auth', 'permission:settings.manage']);
 $router->post('/settings', [SettingController::class, 'save'], ['auth', 'permission:settings.manage', 'csrf']);

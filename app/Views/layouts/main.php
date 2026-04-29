@@ -42,7 +42,7 @@ if (!function_exists('layout_is_active')) {
         <nav class="menu">
             <a href="<?= e(url('/dashboard')) ?>" class="<?= layout_is_active('/dashboard', $currentPath) ?>">
                 <span class="menu-mark">DB</span>
-                <span>Dashboard</span>
+                <span><?= __('dashboard') ?></span>
             </a>
 
             <?php if (Auth::can('users.manage')): ?>
@@ -52,7 +52,7 @@ if (!function_exists('layout_is_active')) {
             <?php if (Auth::can('users.manage')): ?>
             <a href="<?= e(url('/users')) ?>" class="<?= layout_is_active('/users', $currentPath) ?>">
                 <span class="menu-mark">US</span>
-                <span>Utilisateurs</span>
+                <span><?= __('users') ?></span>
             </a>
             <?php endif; ?>
 
@@ -63,28 +63,36 @@ if (!function_exists('layout_is_active')) {
             <?php if (Auth::can('suppliers.manage')): ?>
             <a href="<?= e(url('/suppliers')) ?>" class="<?= layout_is_active('/suppliers', $currentPath) ?>">
                 <span class="menu-mark">FO</span>
-                <span>Fournisseurs</span>
+                <span><?= __('suppliers') ?></span>
             </a>
             <?php endif; ?>
 
             <?php if (Auth::can('products.manage')): ?>
             <a href="<?= e(url('/products')) ?>" class="<?= layout_is_active('/products', $currentPath) ?>">
                 <span class="menu-mark">PR</span>
-                <span>Produits</span>
+                <span><?= __('products') ?></span>
+            </a>
+            <a href="<?= e(url('/categories')) ?>" class="<?= layout_is_active('/categories', $currentPath) ?>">
+                <span class="menu-mark">CA</span>
+                <span><?= __('categories') ?></span>
             </a>
             <?php endif; ?>
 
             <?php if (Auth::can('warehouses.manage')): ?>
             <a href="<?= e(url('/warehouses')) ?>" class="<?= layout_is_active('/warehouses', $currentPath) ?>">
                 <span class="menu-mark">WH</span>
-                <span>Entrepôts</span>
+                <span><?= __('warehouses') ?></span>
             </a>
             <?php endif; ?>
 
             <?php if (Auth::can('stocks.manage')): ?>
             <a href="<?= e(url('/stocks')) ?>" class="<?= layout_is_active('/stocks', $currentPath) ?>">
                 <span class="menu-mark">ST</span>
-                <span>Stocks</span>
+                <span><?= __('stocks') ?></span>
+            </a>
+            <a href="<?= e(url('/inventories')) ?>" class="<?= layout_is_active('/inventories', $currentPath) ?>">
+                <span class="menu-mark">IV</span>
+                <span><?= __('inventories') ?></span>
             </a>
             <?php endif; ?>
 
@@ -95,25 +103,33 @@ if (!function_exists('layout_is_active')) {
             <?php if (Auth::can('purchases.manage')): ?>
             <a href="<?= e(url('/purchases')) ?>" class="<?= layout_is_active('/purchases', $currentPath) ?>">
                 <span class="menu-mark">PO</span>
-                <span>Achats</span>
+                <span><?= __('purchases') ?></span>
             </a>
             <?php endif; ?>
 
             <?php if (Auth::can('orders.manage')): ?>
             <a href="<?= e(url('/customers')) ?>" class="<?= layout_is_active('/customers', $currentPath) ?>">
                 <span class="menu-mark">CL</span>
-                <span>Clients</span>
+                <span><?= __('customers') ?></span>
             </a>
             <a href="<?= e(url('/orders')) ?>" class="<?= layout_is_active('/orders', $currentPath) ?>">
                 <span class="menu-mark">SO</span>
-                <span>Commandes</span>
+                <span><?= __('orders') ?></span>
             </a>
             <?php endif; ?>
 
             <?php if (Auth::can('deliveries.manage')): ?>
+            <a href="<?= e(url('/vehicles')) ?>" class="<?= layout_is_active('/vehicles', $currentPath) ?>">
+                <span class="menu-mark">VH</span>
+                <span><?= __('vehicles') ?></span>
+            </a>
             <a href="<?= e(url('/deliveries')) ?>" class="<?= layout_is_active('/deliveries', $currentPath) ?>">
                 <span class="menu-mark">DL</span>
-                <span>Livraisons</span>
+                <span><?= __('deliveries') ?></span>
+            </a>
+            <a href="<?= e(url('/deliveries/planning')) ?>" class="<?= layout_is_active('/deliveries/planning', $currentPath) ?>">
+                <span class="menu-mark">PL</span>
+                <span><?= __('planning') ?></span>
             </a>
             <?php endif; ?>
 

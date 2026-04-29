@@ -155,6 +155,22 @@ final class DeliveryController extends Controller
         $this->redirect('/driver/deliveries');
     }
 
+    public function planning(): void
+    {
+        $deliveries = (new Delivery())->listDeliveries();
+        // Grouper par date (Y-m-d)
+        $grouped = [];
+        foreach ($deliveries as $d) {
+            $date = date('Y-m-d', strtotime($d['planned_date'] ?? $d['created_at']));
+            $grouped[$date][] = $d;
+        }
+        ksort($grouped);
+
+        $this->view('deliveries/planning', [
+            'groupedDeliveries' => $grouped,
+        ]);
+    }
+
     private function normalizeDateTime(string $raw): ?string
     {
         $raw = trim($raw);

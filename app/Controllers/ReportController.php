@@ -128,4 +128,27 @@ final class ReportController extends Controller
             'rapport-livraisons.pdf'
         );
     }
+
+    public function exportStockCsv(): void
+    {
+        $rows = (new Stock())->summary();
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=export-stock-' . date('Y-m-d') . '.csv');
+        
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['SKU', 'Produit', 'Entrepôt', 'Emplacement', 'Quantité']);
+        
+        foreach ($rows as $row) {
+            fputcsv($output, [
+                $row['sku'] ?? '',
+                $row['product_name'] ?? '',
+                $row['warehouse_name'] ?? '',
+                $row['location_label'] ?? '',
+                $row['quantity'] ?? 0
+            ]);
+        }
+        fclose($output);
+        exit;
+    }
 }
