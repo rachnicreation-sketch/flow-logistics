@@ -14,11 +14,12 @@ final class DashboardController extends Controller
     {
         $service = new DashboardService();
         $this->view('dashboard/index', [
-            'metrics' => $service->metrics(),
-            'salesByMonth' => $service->salesByMonth(),
-            'stockByWarehouse' => $service->stockByWarehouse(),
-            'notifications' => (new Notification())->forCurrentUser(),
-            'lowStockProducts' => (new \App\Models\Product())->lowStock(),
+            'metrics'             => $service->metrics(),
+            'salesByMonth'        => $service->salesByMonth(),
+            'stockByWarehouse'    => $service->stockByWarehouse(),
+            'revenueVsExpenses'   => $service->revenueVsExpenses(),
+            'notifications'       => (new Notification())->forCurrentUser(),
+            'lowStockProducts'    => (new \App\Models\Product())->lowStock(),
         ]);
     }
 }

@@ -82,6 +82,15 @@ final class OrderController extends Controller
                 (new NotificationService())->orderConfirmation($customer['email'], $reference);
             }
 
+            // Génération de la facture associée
+            $orderData = [
+                'id' => $id,
+                'customer_id' => $customerId,
+                'invoice_number' => $invoice,
+                'total_amount' => $total,
+            ];
+            (new \App\Models\Invoice())->createFromOrder($orderData, $items);
+
             (new AuditService())->log('CREATE', 'orders', $id, ['reference' => $reference]);
             Flash::set('success', 'Commande client créée.');
         } catch (\Throwable $e) {

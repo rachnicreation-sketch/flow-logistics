@@ -36,7 +36,7 @@ final class Product extends Model
         }
 
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'category_id' => $data['category_id'] ?: null,
             'name' => $data['name'],
             'sku' => $data['sku'],

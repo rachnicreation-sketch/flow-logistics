@@ -80,7 +80,13 @@
         <div class="warehouse-card">
             <div class="warehouse-card-header">
                 <h4><a href="<?= e(url('/warehouses/' . $w['id'])) ?>"><i class="fa-solid fa-building"></i> <?= e($w['name']) ?></a></h4>
-                <span class="badge badge-info"><?= e($w['code']) ?></span>
+                <div style="display: flex; gap: 5px; align-items: center;">
+                    <span class="badge badge-info"><?= e($w['code']) ?></span>
+                    <form method="post" action="<?= e(url('/warehouses/delete/' . $w['id'])) ?>" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cet entrepôt ?');">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="btn btn-outline btn-sm btn-danger-text" title="Supprimer" style="padding: 2px 6px; border: none; background: transparent;"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </div>
             </div>
             <p class="muted small mb-3"><i class="fa-solid fa-location-dot"></i> <?= e($w['address'] ?: 'Pas d\'adresse') ?></p>
             <ul class="compact-list">
@@ -104,7 +110,13 @@
                         <td><?= e($l['zone_name']) ?></td>
                         <td><?= e($l['label']) ?></td>
                         <td><?= e((string) $l['capacity']) ?></td>
-                        <td><a class="btn btn-outline btn-sm" href="<?= e(url('/locations/' . $l['id'])) ?>">Voir</a></td>
+                        <td>
+                            <a class="btn btn-outline btn-sm" href="<?= e(url('/locations/' . $l['id'])) ?>">Voir</a>
+                            <form method="post" action="<?= e(url('/locations/delete/' . $l['id'])) ?>" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cet emplacement ?');">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="btn btn-outline btn-sm btn-danger-text" title="Supprimer" style="padding: 2px 6px; border: none; background: transparent;"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

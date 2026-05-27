@@ -15,7 +15,7 @@ final class Delivery extends Model
     public function createDelivery(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'order_id' => $data['order_id'],
             'vehicle_id' => $data['vehicle_id'] ?: null,
             'driver_id' => $data['driver_id'] ?: null,
@@ -78,7 +78,7 @@ final class Delivery extends Model
         );
         $stmt->execute([
             'driver_id' => $driverId,
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
         ]);
         return $stmt->fetchAll();
     }

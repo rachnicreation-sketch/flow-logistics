@@ -15,7 +15,7 @@ final class Inventory extends Model
     public function createInventory(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'warehouse_id' => $data['warehouse_id'],
             'title' => $data['title'],
             'status' => 'open',
@@ -36,7 +36,7 @@ final class Inventory extends Model
         $stmt->execute([
             'inventory_id' => $inventoryId,
             'warehouse_id' => $warehouseId,
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
         ]);
     }
 

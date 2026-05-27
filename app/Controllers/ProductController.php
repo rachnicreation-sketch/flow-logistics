@@ -66,8 +66,11 @@ final class ProductController extends Controller
     {
         $name = trim((string) $this->input('name'));
         $sku = trim((string) $this->input('sku'));
-        if ($name === '' || $sku === '') {
-            Flash::set('error', 'Nom et SKU sont obligatoires.');
+        if ($sku === '') {
+            $sku = 'SKU-' . date('YmdHis') . random_int(10, 99);
+        }
+        if ($name === '') {
+            Flash::set('error', 'Nom obligatoire.');
             $this->redirect('/products');
         }
 
@@ -103,8 +106,11 @@ final class ProductController extends Controller
 
         $name = trim((string) $this->input('name'));
         $sku = trim((string) $this->input('sku'));
-        if ($name === '' || $sku === '') {
-            Flash::set('error', 'Nom et SKU sont obligatoires.');
+        if ($sku === '') {
+            $sku = 'SKU-' . date('YmdHis') . random_int(10, 99);
+        }
+        if ($name === '') {
+            Flash::set('error', 'Nom obligatoire.');
             $this->redirect('/products/' . $id);
         }
 

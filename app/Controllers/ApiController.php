@@ -112,6 +112,74 @@ final class ApiController extends Controller
         $this->json(['message' => 'Statut mis à jour']);
     }
 
+    public function products(): void
+    {
+        $user = $this->authToken();
+        if (!$user) return;
+        $products = (new \App\Models\Product())->listWithCategory();
+        $this->json(['data' => $products]);
+    }
+
+    public function stocks(): void
+    {
+        $user = $this->authToken();
+        if (!$user) return;
+        $stocks = (new \App\Models\Stock())->summary();
+        $this->json(['data' => $stocks]);
+    }
+
+    public function createOrder(): void
+    {
+        $user = $this->authToken();
+        if (!$user) return;
+
+        $payload = $this->jsonInput();
+        $customerId = (int) ($payload['customer_id'] ?? 0);
+        $reference = trim((string) ($payload['reference'] ?? ''));
+        $items = $payload['items'] ?? [];
+
+        if ($customerId <= 0 || $reference === '' || empty($items)) {
+            $this->json(['error' => 'Client, référence et articles requis'], 422);
+        }
+
+        try {
+            $total = 0;
+            $formattedItems = [];
+            foreach ($items as $item) {
+                $pid = (int) ($item['product_id'] ?? 0);
+                $qty = (float) ($item['quantity'] ?? 0);
+                $price = (float) ($item['unit_price'] ?? 0);
+                if ($pid > 0 && $qty > 0) {
+                    $formattedItems[] = [
+                        'product_id' => $pid,
+                        'quantity' => $qty,
+                        'unit_price' => $price,
+                    ];
+                    $total += ($qty * $price);
+                }
+            }
+
+            if (empty($formattedItems)) {
+                $this->json(['error' => 'Articles invalides'], 422);
+            }
+
+            $invoice = 'INV-' . date('Ymd') . '-' . random_int(1000, 9999);
+            $id = (new \App\Models\Order())->createOrder([
+                'customer_id' => $customerId,
+                'reference' => $reference,
+                'status' => 'pending',
+                'invoice_number' => $invoice,
+                'delivery_address' => $payload['delivery_address'] ?? null,
+                'total_amount' => $total,
+            ], $formattedItems);
+
+            (new \App\Services\AuditService())->log('CREATE', 'api_orders', $id, ['reference' => $reference]);
+            $this->json(['message' => 'Commande créée', 'order_id' => $id, 'invoice_number' => $invoice], 201);
+        } catch (\Throwable $e) {
+            $this->json(['error' => 'Erreur création: ' . $e->getMessage()], 500);
+        }
+    }
+
     private function authToken(): ?array
     {
         $plainToken = $this->parseBearerToken();

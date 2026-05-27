@@ -13,10 +13,11 @@ final class Vehicle extends Model
     public function createVehicle(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'plate_number' => $data['plate_number'],
             'model' => $data['model'] ?? null,
             'capacity' => $data['capacity'] ?? null,
+            'driver_id' => $data['driver_id'] ?? null,
             'status' => $data['status'] ?? 'available',
             'created_at' => date('Y-m-d H:i:s'),
         ]);

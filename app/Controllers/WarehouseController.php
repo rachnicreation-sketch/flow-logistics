@@ -79,6 +79,42 @@ final class WarehouseController extends Controller
         $this->redirect('/warehouses');
     }
 
+    public function update(int $id): void
+    {
+        $name = trim((string) $this->input('name'));
+        $code = strtoupper(trim((string) $this->input('code')));
+        if ($name === '' || $code === '') {
+            Flash::set('error', 'Nom et code entrepot obligatoires.');
+            $this->redirect('/warehouses');
+        }
+
+        try {
+            (new Warehouse())->updateWarehouse($id, [
+                'name' => $name,
+                'code' => $code,
+                'address' => $this->input('address'),
+            ]);
+            (new AuditService())->log('UPDATE', 'warehouses', $id, ['code' => $code]);
+            Flash::set('success', 'Entrepôt mis à jour.');
+        } catch (\Throwable $e) {
+            Flash::set('error', 'Impossible de mettre à jour l\'entrepot: ' . $e->getMessage());
+        }
+
+        $this->redirect('/warehouses');
+    }
+
+    public function delete(int $id): void
+    {
+        try {
+            (new Warehouse())->deleteWarehouse($id);
+            (new AuditService())->log('DELETE', 'warehouses', $id);
+            Flash::set('success', 'Entrepôt supprimé.');
+        } catch (\Throwable $e) {
+            Flash::set('error', 'Impossible de supprimer l\'entrepot: ' . $e->getMessage());
+        }
+        $this->redirect('/warehouses');
+    }
+
     public function storeZone(): void
     {
         $warehouseId = (int) $this->input('warehouse_id');
@@ -123,6 +159,18 @@ final class WarehouseController extends Controller
             Flash::set('error', 'Impossible d\'ajouter l\'emplacement: ' . $e->getMessage());
         }
 
+        $this->redirect('/warehouses');
+    }
+
+    public function deleteLocation(int $id): void
+    {
+        try {
+            (new Warehouse())->deleteLocation($id);
+            (new AuditService())->log('DELETE', 'warehouse_locations', $id);
+            Flash::set('success', 'Emplacement supprimé.');
+        } catch (\Throwable $e) {
+            Flash::set('error', 'Impossible de supprimer l\'emplacement: ' . $e->getMessage());
+        }
         $this->redirect('/warehouses');
     }
 }

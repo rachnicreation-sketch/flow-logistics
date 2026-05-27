@@ -73,7 +73,10 @@ $router->post('/warehouses', [WarehouseController::class, 'store'], ['auth', 'pe
 $router->post('/warehouses/zones', [WarehouseController::class, 'storeZone'], ['auth', 'permission:warehouses.manage', 'csrf']);
 $router->post('/warehouses/locations', [WarehouseController::class, 'storeLocation'], ['auth', 'permission:warehouses.manage', 'csrf']);
 $router->get('/warehouses/{id}', [WarehouseController::class, 'show'], ['auth', 'permission:warehouses.manage']);
+$router->post('/warehouses/update/{id}', [WarehouseController::class, 'update'], ['auth', 'permission:warehouses.manage', 'csrf']);
+$router->post('/warehouses/delete/{id}', [WarehouseController::class, 'delete'], ['auth', 'permission:warehouses.manage', 'csrf']);
 $router->get('/locations/{id}', [WarehouseController::class, 'locationShow'], ['auth', 'permission:warehouses.manage']);
+$router->post('/locations/delete/{id}', [WarehouseController::class, 'deleteLocation'], ['auth', 'permission:warehouses.manage', 'csrf']);
 
 $router->get('/stocks', [StockController::class, 'index'], ['auth', 'permission:stocks.manage']);
 $router->post('/stocks/move', [StockController::class, 'move'], ['auth', 'permission:stocks.manage', 'csrf']);
@@ -103,14 +106,26 @@ $router->post('/deliveries/{id}/status', [DeliveryController::class, 'updateStat
 $router->get('/driver/deliveries', [DeliveryController::class, 'driverPanel'], ['auth', 'permission:deliveries.driver']);
 $router->post('/driver/deliveries/{id}/status', [DeliveryController::class, 'driverUpdateStatus'], ['auth', 'permission:deliveries.driver', 'csrf']);
 
-// Véhicules
+// Véhicules & Maintenance
 use App\Controllers\VehicleController;
+use App\Controllers\MaintenanceController;
+
 $router->get('/vehicles', [VehicleController::class, 'index'], ['auth', 'permission:deliveries.manage']);
 $router->get('/vehicles/create', [VehicleController::class, 'create'], ['auth', 'permission:deliveries.manage']);
 $router->post('/vehicles', [VehicleController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
 $router->get('/vehicles/edit/{id}', [VehicleController::class, 'edit'], ['auth', 'permission:deliveries.manage']);
 $router->post('/vehicles/update/{id}', [VehicleController::class, 'update'], ['auth', 'permission:deliveries.manage', 'csrf']);
 $router->post('/vehicles/delete/{id}', [VehicleController::class, 'delete'], ['auth', 'permission:deliveries.manage', 'csrf']);
+
+$router->get('/maintenances', [MaintenanceController::class, 'index'], ['auth', 'permission:deliveries.manage']);
+$router->post('/maintenances', [MaintenanceController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
+$router->post('/maintenances/{id}/status', [MaintenanceController::class, 'updateStatus'], ['auth', 'permission:deliveries.manage', 'csrf']);
+
+// Profils chauffeurs (RH)
+use App\Controllers\DriverProfileController;
+$router->get('/drivers', [DriverProfileController::class, 'index'], ['auth', 'permission:deliveries.manage']);
+$router->post('/drivers', [DriverProfileController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
+$router->post('/drivers/{id}/status', [DriverProfileController::class, 'updateStatus'], ['auth', 'permission:deliveries.manage', 'csrf']);
 
 // Inventaires
 use App\Controllers\InventoryController;
@@ -153,9 +168,39 @@ $router->post('/tickets/{id}/comment', [TicketController::class, 'addComment'], 
 $router->post('/tickets/{id}/close', [TicketController::class, 'close'], ['auth', 'permission:tickets.manage', 'csrf']);
 $router->post('/tickets/{id}/reopen', [TicketController::class, 'reopen'], ['auth', 'permission:tickets.manage', 'csrf']);
 
+$router->get('/parcels', [\App\Controllers\ParcelController::class, 'index'], ['auth', 'permission:deliveries.manage']);
+$router->post('/parcels', [\App\Controllers\ParcelController::class, 'store'], ['auth', 'permission:deliveries.manage', 'csrf']);
+$router->post('/parcels/{id}/status', [\App\Controllers\ParcelController::class, 'updateStatus'], ['auth', 'permission:deliveries.manage', 'csrf']);
+
+$router->get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], ['auth', 'permission:reports.view']);
+$router->get('/invoices/{id}', [\App\Controllers\InvoiceController::class, 'show'], ['auth', 'permission:reports.view']);
+$router->post('/invoices/{id}/pay', [\App\Controllers\InvoiceController::class, 'pay'], ['auth', 'permission:reports.view', 'csrf']);
+
+// Dépenses opérationnelles
+use App\Controllers\ExpenseController;
+$router->get('/expenses', [ExpenseController::class, 'index'], ['auth', 'permission:reports.view']);
+$router->post('/expenses', [ExpenseController::class, 'store'], ['auth', 'permission:reports.view', 'csrf']);
+
+// Retours logistiques (Reverse Logistics)
+use App\Controllers\ReturnController;
+$router->get('/returns', [ReturnController::class, 'index'], ['auth', 'permission:orders.manage']);
+$router->post('/returns', [ReturnController::class, 'store'], ['auth', 'permission:orders.manage', 'csrf']);
+$router->post('/returns/{id}/status', [ReturnController::class, 'updateStatus'], ['auth', 'permission:orders.manage', 'csrf']);
+
+// Gestion douanière
+use App\Controllers\CustomsController;
+$router->get('/customs', [CustomsController::class, 'index'], ['auth', 'permission:reports.view']);
+$router->post('/customs', [CustomsController::class, 'store'], ['auth', 'permission:reports.view', 'csrf']);
+$router->post('/customs/{id}/status', [CustomsController::class, 'updateStatus'], ['auth', 'permission:reports.view', 'csrf']);
+
 $router->post('/api/login', [ApiController::class, 'login']);
 $router->post('/api/logout', [ApiController::class, 'logout']);
 $router->get('/api/driver/deliveries', [ApiController::class, 'driverDeliveries']);
 $router->post('/api/driver/deliveries/{id}/status', [ApiController::class, 'updateDriverDeliveryStatus']);
+
+// API B2B / Intégration
+$router->get('/api/products', [ApiController::class, 'products']);
+$router->get('/api/stocks', [ApiController::class, 'stocks']);
+$router->post('/api/orders', [ApiController::class, 'createOrder']);
 
 $router->dispatch();

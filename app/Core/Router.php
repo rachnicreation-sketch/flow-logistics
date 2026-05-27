@@ -49,6 +49,11 @@ final class Router
         $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
         if ($scriptDir !== '' && str_starts_with($uri, $scriptDir)) {
             $uri = substr($uri, strlen($scriptDir));
+        } else {
+            $baseDir = preg_replace('#/public$#', '', $scriptDir);
+            if ($baseDir !== '' && str_starts_with($uri, $baseDir)) {
+                $uri = substr($uri, strlen($baseDir));
+            }
         }
 
         $uri = '/' . trim($uri, '/');

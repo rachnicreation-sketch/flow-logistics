@@ -16,6 +16,14 @@
         <label>Plaque d'immatriculation<input type="text" name="plate_number" required value="<?= e($vehicle['plate_number']) ?>"></label>
         <label>Modèle<input type="text" name="model" value="<?= e($vehicle['model'] ?? '') ?>"></label>
         <label>Capacité (kg)<input type="number" step="0.01" name="capacity" value="<?= e((string)$vehicle['capacity'] ?? '') ?>"></label>
+        <label>Chauffeur assigné
+            <select name="driver_id">
+                <option value="">Aucun</option>
+                <?php foreach ($drivers as $d): ?>
+                    <option value="<?= (int) $d['id'] ?>" <?= ($vehicle['driver_id'] ?? null) == $d['id'] ? 'selected' : '' ?>><?= e($d['name']) ?> (<?= e($d['role_name']) ?>)</option>
+                <?php endforeach; ?>
+            </select>
+        </label>
         <label>Statut
             <select name="status">
                 <option value="available" <?= $vehicle['status'] === 'available' ? 'selected' : '' ?>>Disponible</option>

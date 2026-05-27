@@ -13,7 +13,7 @@ final class Customer extends Model
     public function createCustomer(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'name' => $data['name'],
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,

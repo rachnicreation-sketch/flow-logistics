@@ -15,7 +15,7 @@ final class StockMovement extends Model
     public function add(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'product_id' => $data['product_id'],
             'warehouse_id' => $data['warehouse_id'],
             'location_id' => $data['location_id'] ?? null,

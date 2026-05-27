@@ -14,15 +14,32 @@ final class ReportController extends Controller
 {
     public function index(): void
     {
-        $stockRows = (new Stock())->summary();
-        $orderRows = (new Order())->listOrders();
+        $stockRows    = (new Stock())->summary();
+        $orderRows    = (new Order())->listOrders();
         $deliveryRows = (new Delivery())->listDeliveries();
+
+        $db  = \App\Core\Database::connection();
+        $cid = ((\App\Core\Auth::user()['role_slug'] ?? '') !== 'super_admin')
+             ? \App\Core\Auth::companyId()
+             : null;
+        $w = $cid ? ' WHERE company_id = :cid' : '';
+
+        $scalar = function (string $sql) use ($db, $cid, $w): mixed {
+            $stmt = $db->prepare($sql);
+            if ($cid) $stmt->bindValue(':cid', $cid, \PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        };
 
         $this->view('reports/index', [
             'stats' => [
-                'stock_rows' => count($stockRows),
-                'order_rows' => count($orderRows),
-                'delivery_rows' => count($deliveryRows),
+                'stock_rows'      => count($stockRows),
+                'order_rows'      => count($orderRows),
+                'delivery_rows'   => count($deliveryRows),
+                'return_rows'     => (int) $scalar('SELECT COUNT(*) FROM return_authorizations' . $w),
+                'total_revenue'   => (float) $scalar('SELECT COALESCE(SUM(total_incl_tax),0) FROM invoices WHERE status="paid"' . ($w ? str_replace('WHERE','WHERE',  $w) : '')),
+                'unpaid_invoices' => (float) $scalar('SELECT COALESCE(SUM(total_incl_tax),0) FROM invoices WHERE status IN ("unpaid","partially_paid")' . ($cid ? ' AND company_id = :cid' : '')),
+                'total_expenses'  => (float) $scalar('SELECT COALESCE(SUM(amount),0) FROM expenses' . $w),
             ],
         ]);
     }

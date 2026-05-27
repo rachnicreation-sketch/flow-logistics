@@ -13,7 +13,7 @@ final class Category extends Model
     public function createCategory(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'name' => $data['name'],
             'description' => $data['description'] ?? null,
             'created_at' => date('Y-m-d H:i:s'),

@@ -116,6 +116,14 @@ if (!function_exists('layout_is_active')) {
                 <span class="menu-mark">SO</span>
                 <span><?= __('orders') ?></span>
             </a>
+            <a href="<?= e(url('/invoices')) ?>" class="<?= layout_is_active('/invoices', $currentPath) ?>">
+                <span class="menu-mark">FC</span>
+                <span>Factures &amp; Paiements</span>
+            </a>
+            <a href="<?= e(url('/returns')) ?>" class="<?= layout_is_active('/returns', $currentPath) ?>">
+                <span class="menu-mark">RT</span>
+                <span>Retours clients</span>
+            </a>
             <?php endif; ?>
 
             <?php if (Auth::can('deliveries.manage')): ?>
@@ -123,9 +131,21 @@ if (!function_exists('layout_is_active')) {
                 <span class="menu-mark">VH</span>
                 <span><?= __('vehicles') ?></span>
             </a>
+            <a href="<?= e(url('/drivers')) ?>" class="<?= layout_is_active('/drivers', $currentPath) ?>">
+                <span class="menu-mark">CH</span>
+                <span>Chauffeurs (RH)</span>
+            </a>
+            <a href="<?= e(url('/maintenances')) ?>" class="<?= layout_is_active('/maintenances', $currentPath) ?>">
+                <span class="menu-mark">MT</span>
+                <span>Maintenance Flotte</span>
+            </a>
             <a href="<?= e(url('/deliveries')) ?>" class="<?= layout_is_active('/deliveries', $currentPath) ?>">
                 <span class="menu-mark">DL</span>
                 <span><?= __('deliveries') ?></span>
+            </a>
+            <a href="<?= e(url('/parcels')) ?>" class="<?= layout_is_active('/parcels', $currentPath) ?>">
+                <span class="menu-mark">BX</span>
+                <span>Colis & Expéditions</span>
             </a>
             <a href="<?= e(url('/deliveries/planning')) ?>" class="<?= layout_is_active('/deliveries/planning', $currentPath) ?>">
                 <span class="menu-mark">PL</span>
@@ -137,6 +157,18 @@ if (!function_exists('layout_is_active')) {
             <a href="<?= e(url('/driver/deliveries')) ?>" class="<?= layout_is_active('/driver', $currentPath) ?>">
                 <span class="menu-mark">DR</span>
                 <span>Espace chauffeur</span>
+            </a>
+            <?php endif; ?>
+
+            <?php if (Auth::can('reports.view')): ?>
+            <div class="menu-group">Finances &amp; Douanes</div>
+            <a href="<?= e(url('/expenses')) ?>" class="<?= layout_is_active('/expenses', $currentPath) ?>">
+                <span class="menu-mark">DP</span>
+                <span>Dépenses</span>
+            </a>
+            <a href="<?= e(url('/customs')) ?>" class="<?= layout_is_active('/customs', $currentPath) ?>">
+                <span class="menu-mark">DZ</span>
+                <span>Douanes</span>
             </a>
             <?php endif; ?>
 

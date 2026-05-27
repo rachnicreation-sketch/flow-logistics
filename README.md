@@ -97,6 +97,35 @@ Header: `Authorization: Bearer <token>`
 }
 ```
 
+### API Publique (B2B / Intégration)
+Nécessite un token Bearer (généré via `/api/login` avec un compte administrateur).
+
+**1. Récupérer les produits**
+`GET /api/products`
+Header: `Authorization: Bearer <token>`
+
+**2. Récupérer les stocks**
+`GET /api/stocks`
+Header: `Authorization: Bearer <token>`
+
+**3. Créer une commande (depuis un e-commerce/ERP)**
+`POST /api/orders`
+Header: `Authorization: Bearer <token>`
+```json
+{
+  "customer_id": 1,
+  "reference": "WEB-10293",
+  "delivery_address": "123 Rue de Paris, 75001 Paris",
+  "items": [
+    {
+      "product_id": 5,
+      "quantity": 2,
+      "unit_price": 15.50
+    }
+  ]
+}
+```
+
 ## Sécurité implémentée
 - Requêtes préparées PDO (anti-SQL injection)
 - Mots de passe hashés (bcrypt)

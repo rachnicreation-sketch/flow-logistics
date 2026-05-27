@@ -14,12 +14,22 @@ final class Warehouse extends Model
     public function createWarehouse(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'name' => $data['name'],
             'code' => $data['code'],
             'address' => $data['address'] ?? null,
             'created_at' => date('Y-m-d H:i:s'),
         ]);
+    }
+
+    public function updateWarehouse(int $id, array $data): bool
+    {
+        return $this->updateById($id, $data);
+    }
+
+    public function deleteWarehouse(int $id): bool
+    {
+        return $this->deleteById($id);
     }
 
     public function createZone(array $data): int
@@ -29,7 +39,7 @@ final class Warehouse extends Model
              VALUES (:company_id, :warehouse_id, :name, :created_at)'
         );
         $stmt->execute([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'warehouse_id' => $data['warehouse_id'],
             'name' => $data['name'],
             'created_at' => date('Y-m-d H:i:s'),
@@ -44,13 +54,27 @@ final class Warehouse extends Model
              VALUES (:company_id, :zone_id, :label, :capacity, :created_at)'
         );
         $stmt->execute([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'zone_id' => $data['zone_id'],
             'label' => $data['label'],
             'capacity' => $data['capacity'] ?? null,
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         return (int) $this->db->lastInsertId();
+    }
+
+    public function deleteLocation(int $id): bool
+    {
+        $sql = 'DELETE FROM warehouse_locations WHERE id = :id';
+        if (!$this->isSuperAdmin()) {
+            $sql .= ' AND company_id = :company_id';
+        }
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        if (!$this->isSuperAdmin()) {
+            $stmt->bindValue(':company_id', $this->currentCompanyId(), PDO::PARAM_INT);
+        }
+        return $stmt->execute();
     }
 
     public function zonesByWarehouse(int $warehouseId): array

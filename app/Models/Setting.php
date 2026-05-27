@@ -14,7 +14,7 @@ final class Setting extends Model
     public function allSettings(): array
     {
         $stmt = $this->db->prepare('SELECT setting_key, setting_value FROM company_settings WHERE company_id = :company_id');
-        $stmt->execute(['company_id' => $this->currentCompanyId()]);
+        $stmt->execute(['company_id' => $this->resolveCompanyId()]);
         $rows = $stmt->fetchAll();
         $out = [];
         foreach ($rows as $row) {
@@ -31,7 +31,7 @@ final class Setting extends Model
              ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), updated_at = VALUES(updated_at)'
         );
         $stmt->execute([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'setting_key' => $key,
             'setting_value' => $value,
             'updated_at' => date('Y-m-d H:i:s'),

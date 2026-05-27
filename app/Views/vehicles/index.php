@@ -17,6 +17,14 @@
         <label>Plaque d'immatriculation<input type="text" name="plate_number" required placeholder="Ex: FL-001-AB"></label>
         <label>Modèle<input type="text" name="model" placeholder="Ex: Mercedes Sprinter"></label>
         <label>Capacité (kg)<input type="number" step="0.01" name="capacity" placeholder="1500"></label>
+        <label>Chauffeur assigné
+            <select name="driver_id">
+                <option value="">Aucun</option>
+                <?php foreach ($drivers as $d): ?>
+                    <option value="<?= (int) $d['id'] ?>"><?= e($d['name']) ?> (<?= e($d['role_name']) ?>)</option>
+                <?php endforeach; ?>
+            </select>
+        </label>
         <label>Statut
             <select name="status">
                 <option value="available">Disponible</option>

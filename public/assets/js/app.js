@@ -106,4 +106,19 @@
     row.remove();
     ensureRemoveButtons(rows);
   });
+
+  document.addEventListener("change", (event) => {
+    const target = event.target;
+    if (target.name === "product_id[]" && target.tagName.toLowerCase() === "select") {
+      const option = target.options[target.selectedIndex];
+      const price = option.getAttribute("data-price");
+      const row = target.closest(".item-row");
+      if (row && price) {
+        const priceInput = row.querySelector("input[name=\"unit_price[]\"]");
+        if (priceInput && !priceInput.value) {
+          priceInput.value = price;
+        }
+      }
+    }
+  });
 })();

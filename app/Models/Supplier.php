@@ -14,7 +14,7 @@ final class Supplier extends Model
     public function createSupplier(array $data): int
     {
         return $this->insert([
-            'company_id' => $this->currentCompanyId(),
+            'company_id' => $this->resolveCompanyId(),
             'name' => $data['name'],
             'contact_name' => $data['contact_name'] ?? null,
             'email' => $data['email'] ?? null,

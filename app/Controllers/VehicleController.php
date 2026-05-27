@@ -14,8 +14,10 @@ final class VehicleController extends Controller
     public function index(): void
     {
         $model = new Vehicle();
+        $drivers = (new \App\Models\User())->listUsers();
         $this->view('vehicles/index', [
             'vehicles' => $model->all('plate_number ASC'),
+            'drivers' => $drivers,
         ]);
     }
 
@@ -37,6 +39,7 @@ final class VehicleController extends Controller
                 'plate_number' => $plateNumber,
                 'model' => $this->input('model'),
                 'capacity' => $this->input('capacity') ? (float) $this->input('capacity') : null,
+                'driver_id' => $this->input('driver_id') ? (int) $this->input('driver_id') : null,
                 'status' => $this->input('status') ?: 'available',
             ]);
             (new AuditService())->log('CREATE', 'vehicles', $id, ['plate_number' => $plateNumber]);
@@ -56,8 +59,10 @@ final class VehicleController extends Controller
             $this->redirect('/vehicles');
         }
 
+        $drivers = (new \App\Models\User())->listUsers();
         $this->view('vehicles/edit', [
             'vehicle' => $vehicle,
+            'drivers' => $drivers,
         ]);
     }
 
@@ -74,6 +79,7 @@ final class VehicleController extends Controller
                 'plate_number' => $plateNumber,
                 'model' => $this->input('model'),
                 'capacity' => $this->input('capacity') ? (float) $this->input('capacity') : null,
+                'driver_id' => $this->input('driver_id') ? (int) $this->input('driver_id') : null,
                 'status' => $this->input('status') ?: 'available',
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

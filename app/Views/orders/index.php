@@ -30,7 +30,7 @@
             <div class="item-row mb-2">
                 <select name="product_id[]" style="flex: 2;">
                     <?php foreach ($products as $p): ?>
-                        <option value="<?= (int) $p['id'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
+                        <option value="<?= (int) $p['id'] ?>" data-price="<?= $p['sale_price'] ?>"><?= e($p['name']) ?> (<?= e($p['sku']) ?>)</option>
                     <?php endforeach; ?>
                 </select>
                 <input type="number" step="1" name="quantity[]" placeholder="Qte" required style="flex: 1;">
